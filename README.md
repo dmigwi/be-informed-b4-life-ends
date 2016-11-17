@@ -1,4 +1,4 @@
-# Be Informed B4 Life Ends
+### [Be Informed B4 Life Ends]
 
 *Life is too short for anyone not to discover the wonders of this world*
 
