@@ -1,5 +1,4 @@
 from bi.bucketlistapi.tests.basetest import BaseTest
-import json
 
 
 class TestWorstCase(BaseTest):
@@ -9,11 +8,11 @@ class TestWorstCase(BaseTest):
         login_credentials = {"username": "post", "password": "post"}
         response = self.client.post('/api/v1/auth/login',
                                     format='json',
-                                    data=json.dumps(login_credentials),
-                                                                 )
+                                    data=login_credentials,
+                                    )
         self.assertEqual(
             dict(Error='Login failed: Unauthorized access'),
-            response.json)
+            response.data)
 
     def test_login_with_correct_credentials(self):
         '''Test if a token is returned after a successful login'''
@@ -21,17 +20,16 @@ class TestWorstCase(BaseTest):
                             'password': 'migwi123'}
         response = self.client.post('/api/v1/auth/login',
                                     format='json',
-                                    data=json.dumps(login_credential),
-                                    
+                                    data=login_credential
                                     )
-        self.assertIn('Bearer', response.json.get('Authorization', ''))
+        self.assertIn('Bearer', response.data.get('Authorization', ''))
 
     def test_get_specified_number_of_bucketlists(self):
         '''Test if the specified No. of BucketLists is returned'''
-        response = self.client.get('/api/v1/bucketlists?limit=%s' % 20,
+        response = self.client.get('/api/v1/bucketlists?limit=%s' % 2,
                                    headers=self.auth_head
                                    )
-        self.assertLess(len(response.json), 21)
+        self.assertLess(len(response.data), 3)
 
     def test_get_too_much_number_of_bucketlists(self):
         '''TEst error returned when bucketlists more than 100 is requested'''
@@ -41,19 +39,19 @@ class TestWorstCase(BaseTest):
         self.assertEquals(
             dict(Error=('Get Failed: Only a maximum of 100'
                         ' items can be retrieved at ago')),
-            response.json)
+            response.data)
 
     def test_create_bucketlist_without_name(self):
         '''Test error returned when bucketlist name is not provided'''
         bucketlistss = {'name': ''}
         response = self.client.post('/api/v1/bucketlists',
                                     format='json',
-                                    data=json.dumps(bucketlistss),
+                                    data=bucketlistss,
                                     headers=self.auth_head
                                     )
         self.assertEquals(
             dict(Error='Create Failed: Accepted input format '
-                 'is {\'name\': \'Name 1\'}'), response.json)
+                 'is {\'name\': \'Name 1\'}'), response.data)
 
     def test_get_bucketlist_not_available(self):
         '''
@@ -64,7 +62,7 @@ class TestWorstCase(BaseTest):
                                    )
         self.assertEquals(
             dict(Error='Get Failed: Bucketlist Id 1000 was not found'),
-            response.json)
+            response.data)
 
     def test_update_bucketlist_not_available(self):
         '''
@@ -74,11 +72,11 @@ class TestWorstCase(BaseTest):
         bucketlists = {'name': 'Learn how to Use Vim'}
         response = self.client.put('/api/v1/bucketlists/1000',
                                    headers=self.auth_head,
-                                   data=json.dumps(bucketlists)
+                                   data=bucketlists
                                    )
         self.assertEqual(
             dict(Error='Update Failed: Bucketlist Id 1000 was not found'),
-            response.json)
+            response.data)
 
     def test_delete_bucketlist_not_available(self):
         '''Test error returned when a none existent bucketlist
@@ -88,21 +86,20 @@ class TestWorstCase(BaseTest):
                                       )
         self.assertEqual(
             dict(Error='Delete Failed: Bucketlist Id 1000 was not found'),
-            response.json)
+            response.data)
 
     def test_create_items_in_a_non_existent_bucketlist(self):
         '''Test error returned when a task  is being created
         in a none existent bucketlist'''
         items = {'name': 'This does not exist'}
-        self.auth_head.update({'Accept': 'application/json'})
         response = self.client.post('/api/v1/bucketlists/2000/items',
                                     headers=self.auth_head,
                                     format='json',
-                                    data=json.dumps(items)
+                                    data=items
                                     )
         self.assertEqual(
             dict(Error='Create Failed: Bucketlist Id 2000 was not found'),
-            response.json)
+            response.data)
 
     def test_update_item_in_bucketlist_that_doesnt_exist(self):
         '''Test error returned when a task update is being
@@ -112,11 +109,11 @@ class TestWorstCase(BaseTest):
         response = self.client.put('/api/v1/bucketlists/2000/items/1',
                                    headers=self.auth_head,
                                    format='json',
-                                   data=json.dumps(items)
+                                   data=items
                                    )
         self.assertEqual(
             dict(Error=('Update Failed: You provided Item Id or BucketList'
-                        ' Id that is non existent ')), response.json)
+                        ' Id that is non existent ')), response.data)
 
     def test_delete_item_in_bucketlist_that_doesnt_exist(self):
         '''Test error returned when a task is being deleted
@@ -126,7 +123,7 @@ class TestWorstCase(BaseTest):
                                       )
         self.assertEqual(
             dict(Error='Deleted Failed: You provided Item Id or BucketList'
-                 ' Id that is non existent'), response.json)
+                 ' Id that is non existent'), response.data)
 
     def test_update_item_not_in_bucketlist(self):
         '''Test error returned when a none existent task is bieng updated'''
@@ -135,11 +132,11 @@ class TestWorstCase(BaseTest):
         response = self.client.put('/api/v1/bucketlists/1/items/1121',
                                    format='json',
                                    headers=self.auth_head,
-                                   data=json.dumps(items)
+                                   data=items
                                    )
         self.assertEqual(
             dict(Error=('Update Failed: You provided Item Id or BucketList'
-                        ' Id that is non existent ')), response.json)
+                        ' Id that is non existent ')), response.data)
 
     def test_delete_item_not_in_bucketlist(self):
         '''Test error returned when a none existent task is being deleted'''
@@ -148,4 +145,4 @@ class TestWorstCase(BaseTest):
                                       )
         self.assertEqual(
             dict(Error=('Deleted Failed: You provided Item Id or BucketList Id'
-                        ' that is non existent')), response.json)
+                        ' that is non existent')), response.data)

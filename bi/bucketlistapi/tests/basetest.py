@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework.test import APITestCase
+from rest_framework.authtoken.models import Token
+
 
 from bi.bucketlistapi.models import BucketList, Item
 
@@ -7,8 +9,6 @@ from bi.bucketlistapi.models import BucketList, Item
 class BaseTest(APITestCase):
 
     def setUp(self):
-        # Create a testing client
-        # Create a Test Users
         # Create user migwi
         user_migwi = User.objects.create_user(
             username='andela-dmigwi', password='1234')
@@ -32,6 +32,7 @@ class BaseTest(APITestCase):
         Item.objects.create(name='Watch the stars at the night',
                             bucketlist=bucklist1)
 
-        # Obtain the token and assign it to the header
-
-        self.auth_head = 'Token hhh'
+        # Obtain the token and assign it to the auth_head variable
+        token = Token.objects.create(user=user_migwi)
+        self.auth_head = {'Authorization': 'Bearer {}'.format(token)}
+        # self.client.credentials(HTTP_AUTHOSI)

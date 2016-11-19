@@ -7,7 +7,7 @@ class TestBestCase(BaseTest):
         '''Test retreiving the homePage return type'''
         response = self.client.get('/api/v1')
         self.assertEqual(dict(Message='Hello, World!, This is the Home page'),
-                         response.json)
+                         response.data)
         self.assertEqual(200, response.status_code)
 
     def test_route_auth_register_code(self):
@@ -19,7 +19,7 @@ class TestBestCase(BaseTest):
                                     )
         self.assertEqual(201, response.status_code)
         self.assertEqual(dict(Message='Registration Successful'),
-                         response.json)
+                         response.data)
 
     def test_route_Basic_auth_login_code(self):
         ''' Test Login using a password and username'''
@@ -30,14 +30,14 @@ class TestBestCase(BaseTest):
                                     )
         self.assertEqual(401, response.status_code)
         self.assertEqual({'Error': 'Login failed: Unauthorized access'},
-                         response.json)
+                         response.data)
 
     def test_get_a_list_of_bucketlists(self):
         '''Test retrieving a list of bucketlists'''
         response = self.client.get('/api/v1/bucketlists',
                                    headers=self.auth_head)
         self.assertEqual(200, response.status_code)
-        self.assertGreater(len(response.json), 1)
+        self.assertGreater(len(response.data), 1)
 
     def test_create_a_list_of_bucketlists(self):
         '''Test Creation of a new BucketList'''
@@ -48,14 +48,14 @@ class TestBestCase(BaseTest):
                                     headers=self.auth_head
                                     )
         self.assertEqual(201, response.status_code)
-        self.assertIsNotNone(response.json)
+        self.assertIsNotNone(response.data)
 
     def test_get_bucketlist_with_id(self):
         '''Test retrieving a bucketlist with a given Id'''
         response = self.client.get('/api/v1/bucketlists/1',
                                    headers=self.auth_head)
         self.assertEqual(200, response.status_code)
-        self.assertIsNotNone(response.json)
+        self.assertEqual(len(response.data), 1)
 
     def test_edit_bucketlist_with_id(self):
         '''Test editting a bucketlist with a given Id'''
@@ -67,7 +67,7 @@ class TestBestCase(BaseTest):
                                    )
         self.assertEqual(201, response.status_code)
         self.assertEqual('Visit Canadian Rockies',
-                         response.json.get('name', ''))
+                         response.data.get('name', ''))
 
     def test_delete_bucketlist_with_id(self):
         '''Test Deleting a Bucketlist with a given Id'''
@@ -84,7 +84,7 @@ class TestBestCase(BaseTest):
                                     headers=self.auth_head
                                     )
         self.assertEqual(201, response.status_code)
-        self.assertEqual(task['name'], response.json.get('name', ''))
+        self.assertEqual(task['name'], response.data.get('name', ''))
 
     def test_modify_task_in_bucketlist_with_id(self):
         '''Test Modifying a task in a Bucketlist with a  given Id'''
@@ -96,7 +96,7 @@ class TestBestCase(BaseTest):
                                    data=task_new,
                                    headers=self.auth_head)
         self.assertEqual(201, response.status_code)
-        self.assertTrue(response.json.get('done', ''))
+        self.assertTrue(response.data.get('done', ''))
 
     def test_delete_task_in_bucketlist_with_id(self):
         '''Test Deleting a task in a BucketList with the given Id'''
