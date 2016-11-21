@@ -13,6 +13,12 @@ class Base(models.Model):
     def __str__(self):
         return self.name
 
+    def convert_date_created_to_string(self):
+        return self.date_created.strftime("%a %d/%b/%Y %-H:%M:%S")
+
+    def convert_date_modified_to_string(self):
+        return self.date_created.strftime("%a %d/%b/%Y %-H:%M:%S")
+
 
 class BucketList(Base):
     '''Model class used to create table with Bucketlist details'''
@@ -20,6 +26,14 @@ class BucketList(Base):
     created_by = models.ForeignKey(User,
                                    related_name='bucketlists',
                                    on_delete=models.CASCADE)
+
+    def get_all_associated_bucketlists(self):
+        # Helps avoid circular imports
+        from bi.bucketlistapi.serializer import ItemSerializer
+
+        items = Item.objects.all().filter(bucketlist=self.id)
+        items = ItemSerializer(items, many=True)
+        return items.data
 
 
 class Item(Base):
