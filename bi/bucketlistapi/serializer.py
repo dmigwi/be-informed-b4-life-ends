@@ -16,11 +16,10 @@ class BucketListSerializer(serializers.ModelSerializer):
     items = serializers.ReadOnlyField(
         source='get_all_associated_bucketlists')
 
-    # Sample: 'date_created': 'Mon 21/Nov/2016 18:47:46',
+    # Sample: date format 'Mon 21/Nov/2016 18:47:46',
     date_created = serializers.ReadOnlyField(
         source='convert_date_created_to_string')
 
-    # Sample:  'date_modified': 'Mon 21/Nov/2016 18:47:46'
     date_modified = serializers.ReadOnlyField(
         source='convert_date_modified_to_string')
 
@@ -31,15 +30,12 @@ class BucketListSerializer(serializers.ModelSerializer):
 
 
 class ItemSerializer(serializers.ModelSerializer):
-    # Sample: 'date_created': 'Mon 21/Nov/2016 18:47:46',
     date_created = serializers.ReadOnlyField(
         source='convert_date_created_to_string')
 
-    # Sample:  'date_modified': 'Mon 21/Nov/2016 18:47:46'
     date_modified = serializers.ReadOnlyField(
         source='convert_date_modified_to_string')
 
-    # Setting it to readonly helps in passing a serializer without it
     bucketlist = serializers.ReadOnlyField(source='bucketlist.id')
 
     class Meta:

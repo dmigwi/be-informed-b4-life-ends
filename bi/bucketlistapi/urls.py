@@ -3,7 +3,8 @@ from rest_framework.authtoken.views import obtain_auth_token
 from bi.bucketlistapi.views.bucketlist_viewset import (
     BucketListViewSet, SingleBucketListViewSet,
     CreateItemViewSet, ItemViewSet)
-from bi.bucketlistapi.views.auth_viewset import register_user
+from bi.bucketlistapi.views.auth_viewset import (register_user,
+                                                 logout_user)
 
 
 urlpatterns = [
@@ -13,6 +14,9 @@ urlpatterns = [
     # api
     url(r'^auth/login', obtain_auth_token,
         name='user_login'),
+
+    url(r'^auth/logout', logout_user,
+        name='user_logout'),
 
     url(r'^auth/register', register_user,
         name='user_register'),
@@ -26,6 +30,6 @@ urlpatterns = [
     url(r'^bucketlists/(?P<pk>[0-9]+)/items$',
         CreateItemViewSet.as_view(), name='create_item_view'),
 
-    url(r'^bucketlists/(?P<pk1>[0-9]+)/items/(?P<pk>[0-9]+)$',
+    url(r'^bucketlists/(?P<pk>[0-9]+)/items/(?P<id>[0-9]+)$',
         ItemViewSet.as_view(), name='edit_item_view'),
 ]
