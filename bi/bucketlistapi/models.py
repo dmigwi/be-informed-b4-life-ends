@@ -27,6 +27,9 @@ class BucketList(Base):
                                    related_name='bucketlists',
                                    on_delete=models.CASCADE)
 
+    class Meta:
+        unique_together = ('name', 'created_by',)
+
     def get_all_associated_bucketlists(self):
         # Helps avoid circular imports
         from bi.bucketlistapi.serializer import ItemSerializer
@@ -43,3 +46,6 @@ class Item(Base):
     bucketlist = models.ForeignKey(BucketList,
                                    related_name='items',
                                    on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('name', 'bucketlist',)
