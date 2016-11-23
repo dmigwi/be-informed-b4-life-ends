@@ -34,4 +34,4 @@ class BaseTest(APITestCase):
 
         # Obtain the token and assign it to the auth_head variable
         token = Token.objects.create(user=user_migwi)
-        self.auth_head = {'Authorization': 'Bearer {}'.format(token)}
+        self.auth_head = {'HTTP_AUTHORIZATION': 'Token {}'.format(token)}
