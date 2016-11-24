@@ -9,6 +9,7 @@ from bi.bucketlistapi.permissions import (IsBucketListOwner,
                                           IsItemOwner,
                                           BucketListExists,
                                           ItemExists)
+
 from bi.bucketlistapi.serializer import (BucketListSerializer,
                                          ItemSerializer)
 

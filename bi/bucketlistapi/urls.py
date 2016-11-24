@@ -31,5 +31,6 @@ urlpatterns = [
         CreateItemViewSet.as_view(), name='create_item_view'),
 
     url(r'^bucketlists/(?P<pk>[0-9]+)/items/(?P<id>[0-9]+)$',
+
         ItemViewSet.as_view(), name='edit_item_view'),
 ]
