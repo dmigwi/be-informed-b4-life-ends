@@ -15,7 +15,6 @@ class IsOwner(permissions.BasePermission):
             return obj.created_by == request.user
         elif isinstance(obj, Item):
             return obj.bucketlist.created_by == request.user
-        return False
 
 
 class IsBucketListValid(permissions.BasePermission):

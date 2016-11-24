@@ -2,6 +2,10 @@ from bi.bucketlistapi.tests.basetest import BaseTest
 
 
 class TestWorstCase(BaseTest):
+    '''
+    This is a test file that captures the error messages expected
+    If incorrect input data is used in the api.
+    '''
 
     def test_login_with_wrong_credentails(self):
         '''Test Error returned when wrong login credentials are used'''

@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from rest_framework import status
 from rest_framework.decorators import (api_view,
                                        permission_classes,
                                        authentication_classes)
@@ -54,9 +53,8 @@ def register_user(request):
         password = serialized.data.get('password')
         User.objects.create_user(username=username, password=password)
         message = {"Message": "Registration Successful"}
-        return Response(message, status=status.HTTP_201_CREATED)
-    else:
-        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(message, status=201)
+    return Response(serialized._errors, status=400)
 
 
 @api_view(['POST'])

@@ -38,3 +38,7 @@ class BaseTest(APITestCase):
 
         # Assign the client, the Authorization credentials
         self.client.credentials(HTTP_AUTHORIZATION=auth_head)
+
+        # Make njirap's Token and try to logout
+        token = Token.objects.create(user=user_njirap)
+        self.njirap = 'Token {}'.format(token)

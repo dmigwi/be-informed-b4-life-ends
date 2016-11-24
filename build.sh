@@ -1,4 +1,3 @@
-python manage.py db init
+python manage.py db makemigrations bucketlistapi
 python manage.py db migrate
-python manage.py db upgrade
-gunicorn manage:app 
+gunicorn bi.wsgi:app 

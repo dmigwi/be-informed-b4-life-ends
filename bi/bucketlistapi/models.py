@@ -10,9 +10,6 @@ class Base(models.Model):
     class Meta:
         abstract = True
 
-    def __str__(self):
-        return (self.name, self.date_created)
-
     def convert_date_created_to_string(self):
         return self.date_created.strftime("%a %d/%b/%Y %-H:%M:%S")
 

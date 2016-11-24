@@ -2,6 +2,11 @@ from bi.bucketlistapi.tests.basetest import BaseTest
 
 
 class TestBestCase(BaseTest):
+    '''
+    This is a test file that captures the expected/returned
+    values and status codes if the appropriate input
+    data is used
+    '''
 
     def test_homepage_return(self):
         '''Test retreiving the homePage'''
@@ -91,3 +96,23 @@ class TestBestCase(BaseTest):
         '''Test Deleting a task in a BucketList with the given Id'''
         response = self.client.delete('/api/v1/bucketlists/1/items/3')
         self.assertEqual(204, response.status_code)
+
+    def test_logout(self):
+        '''Test for successful logout'''
+        self.client.credentials(HTTP_AUTHORIZATION=self.njirap)
+        response = self.client.get('/api/v1/bucketlists')
+        # Njira has only one bucketlist
+        self.assertEqual(response.data.get('count'), 1)
+
+        # Try to log out
+        response = self.client.post('/api/v1/auth/logout')
+        self.assertEqual({"Message": " Logout Successful"}, response.data)
+        self.assertEqual(response.status_code, 200)
+
+        # Try logging in as Njira now
+        self.client.credentials(HTTP_AUTHORIZATION=self.njirap)
+        response = self.client.get('/api/v1/bucketlists')
+        # Invalid token. error should be raised
+        self.assertEqual({'detail': 'Invalid token.'}, response.data)
+
+        # For successful access, njirap must login again and get a new token
