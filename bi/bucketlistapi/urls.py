@@ -4,11 +4,13 @@ from bi.bucketlistapi.views.bucketlist_viewset import (
     BucketListViewSet, SingleBucketListViewSet,
     CreateItemViewSet, ItemViewSet)
 from bi.bucketlistapi.views.auth_viewset import (register_user,
-                                                 logout_user)
+                                                 logout_user,
+                                                 homepage_display)
 
 
 urlpatterns = [
-    # url(r'^$', 'home'),
+    # Display help text
+    url(r'^$', homepage_display, name='home'),
 
     # api
     url(r'^auth/login', obtain_auth_token,

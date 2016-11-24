@@ -7,7 +7,8 @@ from rest_framework.authentication import (TokenAuthentication,
                                            BasicAuthentication)
 
 from bi.bucketlistapi.models import BucketList, Item
-from bi.bucketlistapi.permissions import IsOwner
+from bi.bucketlistapi.permissions import (IsOwner,
+                                          IsBucketListValid)
 from bi.bucketlistapi.serializer import (BucketListSerializer,
                                          ItemSerializer)
 
@@ -52,13 +53,13 @@ class CreateItemViewSet(generics.CreateAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     authentication_classes = (BasicAuthentication, TokenAuthentication)
-    permission_classes = (IsAuthenticated, IsOwner)
+    permission_classes = (IsAuthenticated, IsBucketListValid)
 
     def perform_create(self, serializer):
         bucketlist = BucketList.objects.get(id=self.kwargs['pk'])
         try:
             serializer.save(bucketlist=bucketlist)
-        except IntegrityError:
+        except Exception:
             raise ValidationError("Item already exists")
 
 
@@ -67,5 +68,5 @@ class ItemViewSet(generics.RetrieveUpdateDestroyAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     authentication_classes = (BasicAuthentication, TokenAuthentication)
-    permission_classes = (IsAuthenticated, IsOwner)
+    permission_classes = (IsAuthenticated, IsOwner, IsBucketListValid)
     lookup_field = ('id')
