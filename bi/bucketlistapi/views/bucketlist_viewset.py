@@ -34,7 +34,7 @@ class BucketListViewSet(generics.ListCreateAPIView):
         except IntegrityError:
             raise ValidationError("BucketList already exists")
 
-    # Override get_queryset() to allow pagination to work
+    # Override get_queryset() to allow class pagination work
     def get_queryset(self):
         return self.queryset.filter(created_by=self.request.user)
 
@@ -42,7 +42,6 @@ class BucketListViewSet(generics.ListCreateAPIView):
 class SingleBucketListViewSet(generics.RetrieveUpdateDestroyAPIView):
     '''handles GET, PUT and DELETE on a Single Bucketlist'''
     queryset = BucketList.objects.all()
-
     serializer_class = BucketListSerializer
     authentication_classes = (BasicAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated, IsOwner)
@@ -56,9 +55,8 @@ class CreateItemViewSet(generics.CreateAPIView):
     permission_classes = (IsAuthenticated, IsBucketListValid)
 
     def perform_create(self, serializer):
-        bucketlist = BucketList.objects.get(id=self.kwargs['pk'])
         try:
-            serializer.save(bucketlist=bucketlist)
+            serializer.save(bucketlist=self.request.bucketlist)
         except Exception:
             raise ValidationError("Item already exists")
 

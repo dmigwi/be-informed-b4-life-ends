@@ -13,13 +13,13 @@ urlpatterns = [
     url(r'^$', homepage_display, name='home'),
 
     # api
-    url(r'^auth/login', obtain_auth_token,
+    url(r'^auth/login$', obtain_auth_token,
         name='user_login'),
 
-    url(r'^auth/logout', logout_user,
+    url(r'^auth/logout$', logout_user,
         name='user_logout'),
 
-    url(r'^auth/register', register_user,
+    url(r'^auth/register$', register_user,
         name='user_register'),
 
     url(r'^bucketlists$', BucketListViewSet.as_view(),
