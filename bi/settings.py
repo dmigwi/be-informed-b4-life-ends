@@ -51,12 +51,12 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
     'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler'
 }
 
-WAGGER_SETTINGS = {
+SWAGGER_SETTINGS = {
     "exclude_namespaces": [],  # List URL namespaces to ignore
     "api_version": 'alpha 1.0',  # API's version
     "api_path": "/",  # the path to API (it could not be a root level)
@@ -66,7 +66,7 @@ WAGGER_SETTINGS = {
         'delete'
     ],
     "api_key": '',  # An API key
-    "is_authentcated": False,  # Set to True to enforce user authentication,
+    "is_authentcated": True,  # Set to True to enforce user authentication,
     "is_superuser": False,  # Set to True to enforce admin only access
 }
 

@@ -11,13 +11,13 @@ class Base(models.Model):
         abstract = True
 
     def __str__(self):
-        return self.name
+        return (self.name, self.date_created)
 
     def convert_date_created_to_string(self):
         return self.date_created.strftime("%a %d/%b/%Y %-H:%M:%S")
 
     def convert_date_modified_to_string(self):
-        return self.date_created.strftime("%a %d/%b/%Y %-H:%M:%S")
+        return self.date_modified.strftime("%a %d/%b/%Y %-H:%M:%S")
 
 
 class BucketList(Base):
@@ -29,14 +29,6 @@ class BucketList(Base):
 
     class Meta:
         unique_together = ('name', 'created_by',)
-
-    def get_all_associated_bucketlists(self):
-        # Helps avoid circular imports
-        from bi.bucketlistapi.serializer import ItemSerializer
-
-        items = Item.objects.all().filter(bucketlist=self.id)
-        items = ItemSerializer(items, many=True)
-        return items.data
 
 
 class Item(Base):
