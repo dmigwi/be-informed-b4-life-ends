@@ -1,1 +1,8 @@
 venv-django/
+.DS_Store
+db.sqlite3
+*db
+*.pyo
+*.pyc
+migrations
+.coverage
