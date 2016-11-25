@@ -24,9 +24,16 @@ class IsBucketListValid(permissions.BasePermission):
     '''
 
     def has_permission(self, request, view):
-        pk = view.kwargs['pk']
         try:
-            queryset = BucketList.objects.get(id=pk,
+            # If no error is raised by this query then the
+            # bucketList is valid
+            pk_bucketlist = view.kwargs.get('pk', None)
+            pk_item = view.kwargs.get('id', None)
+            if pk_bucketlist and pk_item:
+                Item.objects.get(id=pk_item, bucketlist=pk_bucketlist)
+
+            # get the valid bucketlist and assign it to the request
+            queryset = BucketList.objects.get(id=pk_bucketlist,
                                               created_by=request.user)
             request.bucketlist = queryset
             return True

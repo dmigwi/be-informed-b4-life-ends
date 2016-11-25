@@ -8,23 +8,28 @@ class TestWorstCase(BaseTest):
     '''
 
     def test_login_with_wrong_credentails(self):
-        '''Test Error returned when wrong login credentials are used'''
+        '''
+        Test Error returned when wrong login credentials are used
+        '''
         login_credentials = {"username": "post", "password": "post"}
         response = self.client.post('/api/v1/auth/login',
                                     format='json',
-                                    data=login_credentials,
-                                    )
+                                    data=login_credentials)
         self.assertEqual({'non_field_errors':
                           ['Unable to log in with provided credentials.']},
                          response.data)
 
     def test_get_specified_number_of_bucketlists(self):
-        '''Test if the specified No. of BucketLists is returned'''
+        '''
+        Test if the specified No. of BucketLists is returned
+        '''
         response = self.client.get('/api/v1/bucketlists?page_size=2')
         self.assertLess(response.data.get('count'), 3)
 
     def test_create_bucketlist_without_name(self):
-        '''Test error returned when bucketlist name is not provided'''
+        '''
+        Test error returned when bucketlist name is not provided
+        '''
         bucketlistss = {'name': ''}
         response = self.client.post('/api/v1/bucketlists',
                                     format='json',
@@ -50,14 +55,18 @@ class TestWorstCase(BaseTest):
         self.assertEqual({'detail': 'Not found.'}, response.data)
 
     def test_delete_bucketlist_not_available(self):
-        '''Test error returned when a none existent bucketlist
-         is being deleted'''
+        '''
+        Test error returned when a none existent bucketlist
+         is being deleted
+         '''
         response = self.client.delete('/api/v1/bucketlists/1000')
         self.assertEqual({'detail': 'Not found.'}, response.data)
 
     def test_create_items_in_a_non_existent_bucketlist(self):
-        '''Test error returned when a task  is being created
-        in a none existent bucketlist'''
+        '''
+        Test error returned when a task  is being created
+        in a none existent bucketlist
+        '''
         items = {'name': 'This does not exist'}
         response = self.client.post('/api/v1/bucketlists/2000/items',
                                     format='json',
@@ -65,8 +74,10 @@ class TestWorstCase(BaseTest):
         self.assertEqual({'detail': 'BucketList Not found.'}, response.data)
 
     def test_update_item_in_bucketlist_that_doesnt_exist(self):
-        '''Test error returned when a task update is being
-         made in a none existent bucketlist'''
+        '''
+        Test error returned when a task update is being
+        made in a none existent bucketlist
+        '''
         items = {'name': 'This doesnt exist',
                  'done': True}
         response = self.client.put('/api/v1/bucketlists/2000/items/1',
@@ -75,22 +86,59 @@ class TestWorstCase(BaseTest):
         self.assertEqual({'detail': 'BucketList Not found.'}, response.data)
 
     def test_delete_item_in_bucketlist_that_doesnt_exist(self):
-        '''Test error returned when a task is being deleted
-        in none existent bucketlist'''
+        '''
+        Test error returned when a task is being deleted
+        in none existent bucketlist
+        '''
         response = self.client.delete('/api/v1/bucketlists/2000/items/1')
         self.assertEqual({'detail': 'BucketList Not found.'}, response.data)
 
     def test_update_item_not_in_bucketlist(self):
-        '''Test error returned when a none existent task is bieng updated'''
+        '''
+        Test error returned when a none existent task is bieng updated
+        '''
         items = {'name': 'This doesnt exist',
                  'done': True}
         response = self.client.put('/api/v1/bucketlists/1/items/1121',
                                    format='json',
-                                   data=items
-                                   )
-        self.assertEqual({'detail': 'Not found.'}, response.data)
+                                   data=items)
+        self.assertEqual({'detail': 'BucketList Not found.'}, response.data)
 
     def test_delete_item_not_in_bucketlist(self):
-        '''Test error returned when a none existent task is being deleted'''
+        '''
+        Test error returned when a none existent task is being deleted
+        '''
         response = self.client.delete('/api/v1/bucketlists/1/items/1234',)
-        self.assertEqual({'detail': 'Not found.'}, response.data)
+        self.assertEqual({'detail': 'BucketList Not found.'}, response.data)
+
+    def test_retrieve_item_not_in_bucketlist_not_owned_by_current_user(self):
+        '''
+        Test error returned when a task not owned by current user is bieng
+        retrieved
+        '''
+        items = {'name': 'This doesnt exist',
+                 'done': True}
+        response = self.client.get('/api/v1/bucketlists/2/items/1',
+                                   format='json',
+                                   data=items)
+        self.assertEqual({'detail': 'BucketList Not found.'}, response.data)
+
+    def test_update_item_not_in_bucketlist_not_owned_by_current_user(self):
+        '''
+        Test error returned when a task not owned by current user is bieng
+        updated
+        '''
+        items = {'name': 'This doesnt exist',
+                 'done': True}
+        response = self.client.put('/api/v1/bucketlists/2/items/1',
+                                   format='json',
+                                   data=items)
+        self.assertEqual({'detail': 'BucketList Not found.'}, response.data)
+
+    def test_delete_item_not_in_bucketlist_not_owned_by_current_user(self):
+        '''
+        Test error returned when a task not owned by current user is bieng
+        deleted
+        '''
+        response = self.client.delete('/api/v1/bucketlists/2/items/1',)
+        self.assertEqual({'detail': 'BucketList Not found.'}, response.data)
