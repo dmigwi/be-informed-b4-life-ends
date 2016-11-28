@@ -1,5 +1,5 @@
 {
-    "name": "Be Informed Before Life Ends",
+    "name": "Be-Informed-Before-Life-Ends",
     "version": "1.0.0",
     "author": "Migwi Ndung'u",
     "description": "Front end for the Djang0 bucketlist",
@@ -38,5 +38,8 @@
         "typescript": "^2.0.2",
         "typings": "^1.0.4"
     },
-    "repository": {}
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/andela-dmigwi/be-informed-b4-life-ends.git"
+    }
 }
