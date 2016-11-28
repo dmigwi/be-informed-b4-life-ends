@@ -1,8 +1,8 @@
 {
-    "name": "Angular2-boilerplate",
+    "name": "Be Informed Before Life Ends",
     "version": "1.0.0",
     "author": "Migwi Ndung'u",
-    "description": "Simplified version of angular boilerplate",
+    "description": "Front end for the Djang0 bucketlist",
     "scripts": {
         "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
         "tsc": "tsc",

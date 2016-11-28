@@ -14,3 +14,4 @@ typings/
 *js.map
 *module.js
 main.js
+.coverage

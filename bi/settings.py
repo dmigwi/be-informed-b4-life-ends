@@ -25,11 +25,16 @@ SECRET_KEY = '2ujop3m9%g3fq$jzi5b+6ougmpx1@6&d7-a@)9j^(1wo9u50s#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
+
+# LOGIN_URL = '/api/v1/auth/login'
+
+# LOGOUT_URL = '/api/v1/auth/logout'
+
+# LOGIN_REDIRECT_URL = '/api/v1/auth/login'
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,7 +43,32 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bi.bucketlistapi',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_swagger',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler',
+}
+
+SWAGGER_SETTINGS = {
+    "exclude_namespaces": [],  # List URL namespaces to ignore
+    "api_version": 'alpha 1.0',  # API's version
+    "api_path": "/",  # the path to API (it could not be a root level)
+    "enabled_methods": [  # method to enable in Swagger UI
+        'get',
+        'post',
+        'delete'
+    ],
+    "api_key": '',  # An API key
+    "is_authentcated": True,  # Set to True to enforce user authentication,
+    "is_superuser": False,  # Set to True to enforce admin only access
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -86,18 +116,21 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': ('django.contrib.auth.password_validation.'
+              'UserAttributeSimilarityValidator'),
+     },
+
+    {'NAME':
+        'django.contrib.auth.password_validation.MinimumLengthValidator',
+     },
+
+    {'NAME':
+        'django.contrib.auth.password_validation.CommonPasswordValidator',
+     },
+
+    {'NAME':
+        'django.contrib.auth.password_validation.NumericPasswordValidator',
+     },
 ]
 
 
@@ -106,13 +139,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
 USE_L10N = True
-
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
