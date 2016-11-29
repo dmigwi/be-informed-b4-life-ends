@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE html>
 <html>
   <head>
-    <title>Angular 2 BoilerPlate By Migwi Ndung'u</title>
+    <title>Be Informed</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,700" rel="stylesheet">
     <link href="app/styles.css" rel="stylesheet" />
+    
     
     <!-- Polyfill(s) for older browsers -->
     <script src="node_modules/core-js/client/shim.min.js"></script>
@@ -13,14 +15,99 @@
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="systemjs.config.js"></script>
+    <link rel="stylesheet" type="text/css" href="app/styles.css">
     <script>
       System.import('app').catch(function(err){ console.error(err); });
     </script>
-  </head>
+    </head>
+    <body class="container" data-spy="scroll" data-target=".row.content" data-offset="50">
 
-  <body>
-    <my-app>Loading ...</my-app>
-  </body>
+    <!-- Page Header -->
+    <h3 class="jumbotron text-center"><strong>
+               Life Is Too Short, Be Informed Of Its Wonders Before It Ends.
+    </strong></h3>
+
+ 
+    <!-- Top Bar with logout and Logo sections -->
+    <nav class="navbar navbar-inverse new-navbar navbar-fixed">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"> </span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+          </button>
+          <a class="navbar-brand" href="#">Logo</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">              
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+            <user> Migwi</user>
+            <a href="#"><span class="glyphicon glyphicon-log-in"></span>
+            Logout
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- Login Display -->
+    <!-- <div class="top-content row content">            
+        <div class="inner-bg">
+            <div class="container">                    
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 form-box vacation-image">  
+                         <img src="https://www.jetblue.com/img/vacations/travelstyles/AllInclusive/All_Inc_960x420.jpg" 
+                        class="img-rounded" alt="Vacations" width="97%" height="95%" style="margin:2%;">                          
+                        <div >
+                            <form role="form" action="" method="post" class="login-form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-username">Username</label>
+                                    <input type="text" name="form-username" placeholder="Username..." 
+                                    class="form-username form-control" id="form-username">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-password">Password</label>
+                                    <input type="password" name="form-password" placeholder="Password..." 
+                                    class="form-password form-control" id="form-password">
+                                </div>
+                                <button type="submit" class="btn btn-success">Log In</button>
+                                <button type="submit" class="btn btn-info">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">                        
+                </div>
+            </div>
+        </div>        
+    </div> -->
+
+          
+        <div class="container-fluid text-center">    
+          <div class="row content">
+            <div class="col-sm-1 sidenav ">
+              <div class="scrollable">
+              </div>
+            </div>
+            <div class="col-sm-5 text-left "> 
+
+            <bucketlist>Loading...</bucketlist>            
+
+            </div>
+            <div class="col-sm-6 sidenav">
+            <items>Loading...</items>
+              
+            </div>
+          </div>
+        </div>
+
+        <footer class="container-fluid text-center navbar-inverse new-navbar">
+          <p>Footer Text</p>
+        </footer>
+     </body>
 </html>
