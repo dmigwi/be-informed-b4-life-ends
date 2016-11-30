@@ -1,31 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+// import { ItemsComponent } from './items.component';
 
 @Component({
     selector: 'bucketlist',
-    template: `<div class="well well-sm">
-                 <input type="text" class="form-control" placeholder="Create a new BucketList" name="">
-                  <input type="submit" class="btn btn-link" name="" value="Create BucketList">                  
-              </div>
-              <div class=" scrollable" >
-                  <div class="panel panel-default" *ngFor="let bucket of list_of_buckets; let i = index">
-                      <div class="panel-body">{{i+1}}. {{bucket.name}}</div>
-                      <div class="panel-footer">Date Modified: {{bucket.date_modified}}
-                      <a style="color: green;"href="{{bucket.id}}"><span class="glyphicon glyphicon-edit">Edit</span></a>
-                      <a style="color: red;" href="{{bucket.id}}"><span class="glyphicon glyphicon-trash">Delete</span></a>
-                      </div>                       
-                  </div>                 
-                 </div>
-                 <ul class="pager">
-                  <li class="previous disabled"><a href="#">Previous</a></li>
-                  <li class="next"><a href="#">Next</a></li>
-                </ul>
-              `
+    // directives: [ ItemsComponent ],
+    templateUrl: 'app/bucketlist.component.html'
 })
 
-export class BucketlistComponent{
-    private name: string = '1. BucketList Name 1'
-    private date_modified: string = 'Tue 5/Nov/2016 13:23:45'
-
+export class BucketlistComponent implements OnInit{
+    private validId: number = 0;
+    private bucketlistName: string = 'No BucketList Found!';
     private list_of_buckets: any[] = [
                        {
                         "created_by": "Migwi",
@@ -105,13 +89,83 @@ export class BucketlistComponent{
                       },
                       {
                         "created_by": "Migwi",
+                        "date_created": "2016-11-29 14:35:33",
+                        "date_modified": "2016-11-29 14:35:33",
+                        "id": 6,
+                        "item": [
+                               {
+                                "id": 6,
+                                "date_created": "2016-11-29 14:35:39",
+                                "date_modified": "2016-11-29 14:35:39",
+                                "bucketlist": 6,
+                                "done": false,
+                                "name": "Item 6"
+                              },
+                              {
+                                "id": 7,
+                                "date_created": "2016-11-29 14:35:45",
+                                "date_modified": "2016-11-29 14:35:45",
+                                "bucketlist": 2,
+                                "done": false,
+                                "name": "Item 7"
+                              },
+                              {
+                                "id": 8,
+                                "date_created": "2016-11-29 14:35:53",
+                                "date_modified": "2016-11-29 14:35:53",
+                                "bucketlist": 6,
+                                "done": true,
+                                "name": "Item 8"
+                              },
+                              {
+                                "id": 9,
+                                "date_created": "2016-11-29 14:35:45",
+                                "date_modified": "2016-11-29 14:35:45",
+                                "bucketlist": 2,
+                                "done": false,
+                                "name": "Item 9"
+                              },
+                              {
+                                "id": 10,
+                                "date_created": "2016-11-29 14:35:53",
+                                "date_modified": "2016-11-29 14:35:53",
+                                "bucketlist": 2,
+                                "done": true,
+                                "name": "Item 10"
+                              }
+                            ],
+                            
+                        "name": "BucketList 6"
+                      },
+                      {
+                        "created_by": "Migwi",
                         "date_created": "2016-11-29 14:35:53",
                         "date_modified": "2016-11-29 14:35:53",
                         "id": 5,
                         "item": [],
                         "name": "BucketList 5"
                       }
-                    ]
+                    ];
+
+    // Function returns Message if the current user doesn't have any bucketlist
+    getBucketListId(){
+        if (typeof(this.list_of_buckets[0]) !== 'undefined') {
+             return this.list_of_buckets[0];
+         }
+
+    }
+    
+    // Called after the component has fully loaded
+    ngOnInit(){
+        this.validId = this.getBucketListId().id;
+        this.bucketlistName = this.getBucketListId().name;
+    }
+
+    // Change the BucketList Id to the current clicked bucketList's
+    displayCurrentItems(id: number, name: string){
+        this.validId = id; 
+        this.bucketlistName = name;             
+    }
 
 }
 

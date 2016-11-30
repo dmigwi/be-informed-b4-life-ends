@@ -1,0 +1,67 @@
+<div class="col-sm-5 text-left">                   
+<div class="well well-sm">
+    <input type="text" class="form-control" placeholder="Create a new BucketList" name="">
+    <input type="submit" class="btn btn-link" name="" value="Create BucketList">
+
+    <!--Span tags to display status messages-->
+    <span [id]="'red error create' + i"></span><span [id]="'green success create' + i"></span>  
+
+</div>
+<div class=" scrollable" >
+  <div class="panel panel-default" *ngFor="let bucket of list_of_buckets; let i = index">                          
+      <div class="panel-body" (click)="displayCurrentItems(bucket.id, bucket.name)">
+
+            <!--Span tags to display status messages-->
+            <span [id]="'red error items' + i"></span><span [id]="'green success items' + i"></span>
+
+            <span>{{i+1}}. {{bucket.name}}</span>
+      </div>
+      <div class="panel-footer">Date Modified: {{bucket.date_modified}}
+          <a class="green" id="{{bucket.id}}" data-toggle="modal" [attr.data-target]="'#UpdateModalItems' + i" href="">
+              <span class="glyphicon glyphicon-edit">Edit</span>
+          </a>
+          <a class="red" id="{{bucket.id}}" data-toggle="modal" [attr.data-target]="'#DeleteModalItems' + i" href="">
+              <span class="glyphicon glyphicon-trash">Delete</span>
+          </a>
+
+          <!-- Update Modal -->
+            <div class="modal fade" [id]="'UpdateModalItems' + i" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content modal-margin">
+                <div class="modal-header">
+                  <input type="text" class="form-control" value="{{bucket.name}}" name="" required="true">
+                  <input type="button" class="btn btn-info" value="Update">
+                  <input type="button" class="btn" data-dismiss="modal" value="Cancel">
+                </div>       
+              </div>                                      
+             </div>
+          </div>
+
+          <!-- Delete Modal -->
+            <div class="modal fade" [id]="'DeleteModalItems' + i" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content modal-margin">
+                <div class="modal-header">
+                  <p><strong>Do you want to Delete Bucketlist: {{bucket.name}}?</strong></p>
+                  <input type="button" class="btn btn-danger" value="Delete">
+                  <input type="button" class="btn" data-dismiss="modal" value="Cancel">
+                </div>       
+              </div>                                      
+             </div>
+          </div>
+      </div>                       
+   </div>                 
+</div>
+<ul class="pager">
+  <li class="previous disabled"><a href="#">Previous</a></li>
+  <li class="next"><a href="#">Next</a></li>
+</ul>     
+
+</div>
+<div class="col-sm-6 sidenav">                
+<items [bucketlistId]="validId" [bucketName]="bucketlistName" > Loading... </items>               
+</div>
