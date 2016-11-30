@@ -1,15 +1,18 @@
 <div class="well well-sm">
-<input type="text" class="form-control" placeholder="Create a new item in : {{this.bucketName}}" name="">
-<input type="submit" class="btn btn-link" name="" value="Create Item">
- <!--Span tags to display status messages-->
- <span [id]="'red error create-items' + i"></span><span [id]="'green success create-items' + i"></span>  
+    <input type="text" class="form-control" placeholder="Create a new item in : {{this.bucketName}}" name="" required="true">
+    <input type="submit" class="btn btn-link" name="" value="Create Item">
+
+     <!--Span tags to display status messages-->
+     <span class="red" id="error-create-item"></span>
+     <span class="green" id="success-create-item"></span>  
 
 </div>
 <div class="scrollable">                 
    <div class="well well-sm" *ngFor="let item of getItemsId(); let i = index ">
 
    <!--Span tags to display status messages-->
-   <span [id]="'red error-Item' + i"></span><span [id]="'green success-Item' + i"></span> 
+   <span class="red" [id]="'error-item-' + i"></span>
+   <span class="green" [id]="'success-Item-' + i"></span> 
 
     <p><span [class]="getDoneStatus(item.done)"></span>{{item.name}}</p>
     <p>Date Modified: {{item.date_modified}}</p> 
@@ -31,14 +34,12 @@
         <div class="modal-header">
           <input type="text" class="form-control" value="{{item.name}}" name="" required="true">                                
              <div [ngSwitch]="item.done">
-             <p>
-               <label >Done :</label>
-                <input type="checkbox" *ngSwitchCase="true" checked name="">
-                <input type="checkbox" *ngSwitchDefault name="">
+               <p>
+                   <label >Done :</label>
+                   <input type="checkbox" *ngSwitchCase="true" checked name="">
+                   <input type="checkbox" *ngSwitchDefault name="">
                 </p>
-              </div>           
-          
-
+              </div>
           <input type="button" class="btn btn-info" value="Update">
           <input type="button" class="btn" data-dismiss="modal" value="Cancel">
         </div>       
@@ -53,7 +54,7 @@
       <!-- Modal content-->
       <div class="modal-content modal-margin">
         <div class="modal-header">
-          <p><strong>Do you really want to Delete Item: {{item.name}}?</strong></p>
+          <p><strong>Do you want to Delete Item: {{item.name}}?</strong></p>
           <input type="button" class="btn btn-danger" value="Delete">
           <input type="button" class="btn" data-dismiss="modal" value="Cancel">
         </div>       

@@ -1,10 +1,11 @@
 <div class="col-sm-5 text-left">                   
 <div class="well well-sm">
-    <input type="text" class="form-control" placeholder="Create a new BucketList" name="">
+    <input type="text" class="form-control" placeholder="Create a new BucketList" name="" Validators.required>
     <input type="submit" class="btn btn-link" name="" value="Create BucketList">
 
     <!--Span tags to display status messages-->
-    <span [id]="'red error create' + i"></span><span [id]="'green success create' + i"></span>  
+    <span class="red" id="error-create-bucket"></span>
+    <span class="green" id="success-create-bucket"></span>  
 
 </div>
 <div class=" scrollable" >
@@ -12,7 +13,8 @@
       <div class="panel-body" (click)="displayCurrentItems(bucket.id, bucket.name)">
 
             <!--Span tags to display status messages-->
-            <span [id]="'red error items' + i"></span><span [id]="'green success items' + i"></span>
+            <span class="red" [id]="'error-bucket-' + bucket.id"></span>
+            <span class="green" [id]="'success-bucket-' + bucket.id"></span>
 
             <span>{{i+1}}. {{bucket.name}}</span>
       </div>
