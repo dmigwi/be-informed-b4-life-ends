@@ -1,6 +1,13 @@
 <div class="well well-sm">
-    <input type="text" class="form-control" placeholder="Create a new item in : {{this.bucketName}}" name="" required="true">
-    <input type="submit" class="btn btn-link" name="" value="Create Item">
+    <form (ngSubmit)="CreateItemForm(createitem.value, this.bucketlistId); createitem.reset()">
+        <input type="text" class="form-control" 
+                placeholder="Create a new item in : {{this.bucketName}}" 
+                required pattern="[A-Za-z0-9-.\s]+" maxlength="50"
+                [ngModel]="model" name="createitem" #createitem="ngModel"
+                data-toggle="tooltip" title="(Max allowed Item name size: 50 characters)" >
+         <div [hidden]="createitem.valid" class="red">* Item name is not Valid.</div>
+        <input type="submit" class="btn btn-primary" name="" value="Create Item" [disabled]="!createitem.valid">
+    </form>
 
      <!--Span tags to display status messages-->
      <span class="red" id="error-create-item"></span>
@@ -32,16 +39,25 @@
       <!-- Modal content-->
       <div class="modal-content modal-margin">
         <div class="modal-header">
-          <input type="text" class="form-control" value="{{item.name}}" name="" required="true">                                
+           <form (ngSubmit)="UpdateItemForm(updatename.value, updatedone.value); updatename.reset(); updatedone.reset()">
+             <input type="text" class="form-control" data-toggle="tooltip"  
+                pattern="[A-Za-z0-9-.\s]+" maxlength="50" required
+                [ngModel]="item.name" name="updatename" #updatename="ngModel"
+                title="(Max allowed Item name size: 50 characters)" value="{{item.name}}">  
+             <div [hidden]="updatename.valid" class="red">* Item name is not Valid.</div>                             
              <div [ngSwitch]="item.done">
                <p>
                    <label >Done :</label>
-                   <input type="checkbox" *ngSwitchCase="true" checked name="">
-                   <input type="checkbox" *ngSwitchDefault name="">
+                   <input type="checkbox" *ngSwitchCase="true" [ngModel]="'checked'" name="updatedone"
+                           #updatedone="ngModel" (click)="onChange($event)">
+                   <input type="checkbox" *ngSwitchDefault [ngModel]="" #updatedone="ngModel" 
+                           name="updatedone" (click)="onChange($event)">
                 </p>
               </div>
-          <input type="button" class="btn btn-info" value="Update">
-          <input type="button" class="btn" data-dismiss="modal" value="Cancel">
+              <input type="button" class="btn btn-info" value="Update" [disabled]="!updatename.valid" 
+              (click)="UpdateItemForm(updatename.value, updatedone)">
+              <input type="button" class="btn" data-dismiss="modal" value="Cancel">
+           </form>
         </div>       
       </div>
      </div>                                     

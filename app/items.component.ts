@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
 
 })
 export class ItemsComponent{
+    private checkbox_toggle: any = undefined;
 	private list_of_buckets: any[] = [
                        {
                         "created_by": "Migwi",
@@ -156,7 +157,23 @@ export class ItemsComponent{
 				return bucketlist.item;
 			} 
     	}
-     }            
+     } 
+
+     // checkbox toggle
+     onChange(event: string){         
+         this.checkbox_toggle = event.target.checked;
+     }
+     
+     // UpdateItemForm(updatename.value, updatedone.value)
+     UpdateItemForm(name: string){
+        console.log(name)
+        console.log(this.checkbox_toggle)
+     } 
+
+     CreateItemForm(createitem: string, bucketId: number){
+        console.log(createitem)
+        console.log(bucketId)
+     }          
 
     // Function checks the done status an returns the glyphicon class
     getDoneStatus(status: boolean) {

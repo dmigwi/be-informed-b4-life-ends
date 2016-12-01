@@ -1,8 +1,14 @@
 <div class="col-sm-5 text-left">                   
 <div class="well well-sm">
-    <input type="text" class="form-control" placeholder="Create a new BucketList" name="" Validators.required>
-    <input type="submit" class="btn btn-link" name="" value="Create BucketList">
-
+    <form (ngSubmit)="CreateBucketListForm(createBucket.value); createBucket.reset()">
+        <input type="text" class="form-control" 
+                    placeholder="Create a new BucketList" 
+                    required pattern="[A-Za-z0-9-.\s]+" maxlength="50"
+                    [ngModel]="model" name="createBucket" #createBucket="ngModel" 
+                    data-toggle="tooltip" title="(Max allowed BucketList name size: 50 characters)">
+         <div [hidden]="createBucket.valid" class="red">* BucketList name is not Valid.</div>
+        <input type="submit" class="btn btn-primary" name="" value="Create BucketList" [disabled]="!createBucket.valid">
+    </form>
     <!--Span tags to display status messages-->
     <span class="red" id="error-create-bucket"></span>
     <span class="green" id="success-create-bucket"></span>  
@@ -18,7 +24,7 @@
 
             <span>{{i+1}}. {{bucket.name}}</span>
       </div>
-      <div class="panel-footer">Date Modified: {{bucket.date_modified}}
+      <div class="panel-footer">Date Modified: {{bucket.date_modified}}  .
           <a class="green" id="{{bucket.id}}" data-toggle="modal" [attr.data-target]="'#UpdateModalItems' + i" href="">
               <span class="glyphicon glyphicon-edit">Edit</span>
           </a>
@@ -33,9 +39,15 @@
               <!-- Modal content-->
               <div class="modal-content modal-margin">
                 <div class="modal-header">
-                  <input type="text" class="form-control" value="{{bucket.name}}" name="" required="true">
-                  <input type="button" class="btn btn-info" value="Update">
-                  <input type="button" class="btn" data-dismiss="modal" value="Cancel">
+                  <form (ngSubmit)="UpdateBucketList(updateBucket.value); updateBucket.reset()">
+                      <input type="text" class="form-control" [ngModel]="bucket.name"
+                             name="updateBucket" required
+                             #updateBucket="ngModel" pattern="[A-Za-z0-9-.\s]+" maxlength="50"
+                             data-toggle="tooltip" title="(Max allowed BucketList name size: 50 characters)">
+                       <div [hidden]="updateBucket.valid" class="red">* BucketList name is not Valid.</div>
+                      <input type="submit" class="btn btn-info" value="Update" [disabled]="!updateBucket.valid">
+                      <input type="button" class="btn" data-dismiss="modal" value="Cancel">
+                  </form>
                 </div>       
               </div>                                      
              </div>

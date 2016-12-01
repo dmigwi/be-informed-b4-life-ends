@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-// import { ItemsComponent } from './items.component';
 
 @Component({
     selector: 'bucketlist',
-    // directives: [ ItemsComponent ],
     templateUrl: 'app/bucketlist.component.html'
 })
 
@@ -154,6 +152,19 @@ export class BucketlistComponent implements OnInit{
          }
 
     }
+
+         
+    // Recieves Create BucketList form data
+    CreateBucketListForm(data: string){
+        console.log(data);
+        
+    }
+    
+    // Recieves Update Bucketlist form data
+    UpdateBucketList(updateBucket: string){
+        console.log(updateBucket);        
+    }
+
     
     // Called after the component has fully loaded
     ngOnInit(){
