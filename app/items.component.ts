@@ -160,7 +160,7 @@ export class ItemsComponent{
      } 
 
      // checkbox toggle
-     onChange(event: string){         
+     onChange(event: any){         
          this.checkbox_toggle = event.target.checked;
      }
      

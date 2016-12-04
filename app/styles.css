@@ -24,7 +24,7 @@
     }
     
     /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 550px) {
       .sidenav {
         height: auto;
         padding: 15px;

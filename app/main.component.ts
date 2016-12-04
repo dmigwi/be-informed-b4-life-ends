@@ -14,8 +14,8 @@ import { Component } from '@angular/core';
                       </button>
                       <a class="navbar-brand" href="#">Logo</a>
                     </div>
-                    <div class="hidden collapse navbar-collapse" id="myNavbar">              
-                      <ul class="nav navbar-nav navbar-right">
+                    <div class=" collapse navbar-collapse" id="myNavbar">              
+                      <ul class="hidden nav navbar-nav navbar-right">
                         <li>
                         <span> Migwi</span>
                         <a href="#"><span class="glyphicon glyphicon-log-in"></span>
@@ -26,25 +26,16 @@ import { Component } from '@angular/core';
                   </div>
                 </nav>
 
-                <login>Loading....</login>
-                
+                <nav>
+                    <a routerLink="/" routerLinkActive="active">Login</a>
+                    <a routerLink="/#" routerLinkActive="active">app</a>
+                </nav>
 
-                      
-                    <div class="hidden container-fluid text-center" >    
-                      <div class="row content">
-                        <div class="col-sm-1 sidenav ">
-                          <div class="scrollable">
-                          </div>
-                        </div>
-                        
-                        <bucketlist>Loading...</bucketlist>  
-                        
-                      </div>
-                    </div>
-            
-                    <footer class="container-fluid text-center navbar-inverse new-navbar">
-                      <p>Footer Text</p>
-                    </footer>
+               <router-outlet></router-outlet>
+
+                <footer class="container-fluid text-center navbar-inverse new-navbar">
+                  <p>Footer Text</p>
+                </footer>
               `
 })
 export class MainComponent{

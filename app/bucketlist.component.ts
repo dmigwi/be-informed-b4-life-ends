@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'bucketlist',
     templateUrl: 'app/bucketlist.component.html'
 })
 
