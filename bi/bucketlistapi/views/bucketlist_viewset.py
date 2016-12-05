@@ -36,7 +36,8 @@ class BucketListViewSet(generics.ListCreateAPIView):
 
     # Override get_queryset() to allow class pagination work
     def get_queryset(self):
-        return self.queryset.filter(created_by=self.request.user)
+        return self.queryset.order_by('-date_modified').filter(
+            created_by=self.request.user)
 
 
 class SingleBucketListViewSet(generics.RetrieveUpdateDestroyAPIView):

@@ -25,7 +25,7 @@ SECRET_KEY = '2ujop3m9%g3fq$jzi5b+6ougmpx1@6&d7-a@)9j^(1wo9u50s#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = []
 
 # LOGIN_URL = '/api/v1/auth/login'
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'bi.bucketlistapi',
     'rest_framework',
     'rest_framework.authtoken',
@@ -73,6 +74,7 @@ SWAGGER_SETTINGS = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -81,6 +83,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'bi.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {

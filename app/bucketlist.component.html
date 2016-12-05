@@ -1,3 +1,25 @@
+<nav class="navbar navbar-inverse new-navbar navbar-fixed">
+  <div class="container-fluid">
+  <a class="navbar-brand" href="#">Logo</a>
+    <div class="navbar-header">             
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"> </span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>                      
+    </div>
+    <div class=" collapse navbar-collapse" id="myNavbar">              
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+        <span>{{currentUser}}</span>
+        <a href="#"><span class="glyphicon glyphicon-log-in"></span>
+        Logout
+        </a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
  <div class="container-fluid text-center">    
     <div class="row content">
       <div class="col-sm-1 sidenav ">
@@ -7,14 +29,15 @@
 
     <div class="col-sm-5 text-left">                 
     <div class="well well-sm">
-      <form (ngSubmit)="CreateBucketListForm(createBucket.value); createBucket.reset()">
+      <form >
           <input type="text" class="form-control" 
                       placeholder="Create a new BucketList" 
                       required pattern="[A-Za-z0-9-.\s]+" maxlength="50"
                       [ngModel]="model" name="createBucket" #createBucket="ngModel" 
                       data-toggle="tooltip" title="(Max allowed BucketList name size: 50 characters)">
            <div [hidden]="createBucket.valid" class="red">* BucketList name is not Valid.</div>
-          <input type="submit" class="btn btn-primary" name="" value="Create BucketList" [disabled]="!createBucket.valid">
+          <input type="submit" class="btn btn-primary" name="" value="Create BucketList"
+          (click)="CreateBucketList(createBucket.value); createBucket.reset()" [disabled]="!createBucket.valid">
       </form>
 
       <!--Span tags to display status messages-->
