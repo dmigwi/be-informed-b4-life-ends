@@ -1,1 +1,1 @@
-web: node ./frontEnd/dist/main.bundle.js
+web: source ./build.sh;
