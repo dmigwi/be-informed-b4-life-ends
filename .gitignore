@@ -7,16 +7,41 @@ db.sqlite3
 *.pyc
 migrations
 *local_settings.py
+.coverage
 
 #Angular files
-.DS_Store
-node_modules/
-typings/
-*component.js
-*js.map
-*module.js
-*service.js
-*.js
-npm-debug.log
+# compiled output
+/dist
+/tmp
 
-.coverage
+# dependencies
+/node_modules
+/bower_components
+
+# IDEs and editors
+/.idea
+/.vscode
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+#System Files
+.DS_Store
+Thumbs.db
+
+
