@@ -11,7 +11,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class HttpDataService {
-    private BaseURL = "http://localhost:8000/";
+    private BaseURL = "https://dj-bucketlist.herokuapp.com/"; //"http://localhost:8000/";
     private loginUrl: string = this.BaseURL + "api/v1/auth/login";
     private logoutUrl: string = this.BaseURL + "api/v1/auth/logout";
     private registerUrl: string = this.BaseURL + "api/v1/auth/register";

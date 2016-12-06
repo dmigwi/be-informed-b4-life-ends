@@ -6,6 +6,7 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework_swagger.views import get_swagger_view
+from django.contrib.staticfiles import views
 
 schema_view = get_swagger_view(title='Be Informed Before Life Ends')
 
@@ -18,4 +19,8 @@ urlpatterns = [
     url(r'^api/v1/', include('bi.bucketlistapi.urls')),
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
+]
+
+urlpatterns += [
+    url(r'^static/(?P<path>.*)$', views.serve),
 ]

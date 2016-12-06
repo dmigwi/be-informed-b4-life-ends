@@ -27,7 +27,7 @@ SECRET_KEY = '2ujop3m9%g3fq$jzi5b+6ougmpx1@6&d7-a@)9j^(1wo9u50s#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'dj-bucketlist.herokuapp.com']
 
 LOGIN_URL = '/api/v1/auth/login'
 

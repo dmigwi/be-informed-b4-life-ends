@@ -1,3 +1,3 @@
-python manage.py db makemigrations bucketlistapi
-python manage.py db migrate
-gunicorn bi.wsgi:app 
+python manage.py makemigrations bucketlistapi
+python manage.py migrate
+gunicorn bi.wsgi --log-file - 
