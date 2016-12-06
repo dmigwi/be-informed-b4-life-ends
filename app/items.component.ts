@@ -10,7 +10,7 @@ import { Item } from './bucketlist.items';
 })
 export class ItemsComponent{
     private checkbox_toggle: any = undefined;
-	  private list_of_items: Item[] = [];
+	private list_of_items: Item[] = [];
     private items: HttpDataService;
     private updateObject: any;
 
@@ -33,7 +33,6 @@ export class ItemsComponent{
      
     // Retrieves the items based on the BucketList id available
     RetrieveItems(bucketId : number = this.bucketlistId){
-        console.log(bucketId, "create");
         this.items.RetrieveSingleBucketList(bucketId)
                    .subscribe((data: any) => this.ExtractItemData(data),
                         (err: any) => this.OnError(err._body)); 

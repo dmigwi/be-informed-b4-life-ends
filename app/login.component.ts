@@ -72,8 +72,7 @@ import 'rxjs/Rx';
                   <!-- Modal content-->
                   <div class="modal-content modal-margin">
                     <div class="modal-header">
-                      <form class="login-form" (ngSubmit)="userRegister(username2.value, password2.value); 
-                           username2.reset(); password2.reset(); confirm1.reset();">
+                      <form class="login-form">
                         <div class="form-group">                                    
                             <input type="text" name="username2" placeholder="Username..." 
                                     class="form-control" [ngModel]="" #username2="ngModel"
@@ -93,7 +92,8 @@ import 'rxjs/Rx';
                                    >
                             <div [hidden]="password2.value === confirm1.value" class="red">* Password not equal.</div>
                         </div>
-                        <button class="navbar-left btn btn-info" type="submit"
+                        <button class="navbar-left btn btn-info" type="button"  data-dismiss="modal"
+                             (click)="userRegister(username2.value, password2.value)"
                             [disabled]="!password2.valid||!username2.valid||!confirm1.valid">
                             Register</button>
                         <input type="button" class="btn" data-dismiss="modal" value="Cancel">
@@ -151,7 +151,7 @@ export class LoginComponent {
      } 
     
     // Display successful registration to the user
-    OnSuccess(data: any){           
-        this.successMessage = data;
+    OnSuccess(data: any){              
+        this.successMessage = data.Message;
      } 
 }

@@ -1,8 +1,8 @@
 <div class="well well-sm">
     <form (ngSubmit)="CreateItemForm(createitem.value, this.bucketlistId); createitem.reset()">
         <input type="text" class="form-control" 
-                placeholder="Create a new item in : {{this.bucketName}}" 
-                required pattern="^\S+\s?\S*\s?\S*\s?\S*\s?\S*\s?" maxlength="50"
+                placeholder="Create a new item in : {{this.bucketName}}" maxlength="50"
+                required pattern="^\S+\s?\S*\s?\S*\s?\S*\s?\S*\s?\S*\s?\S*\s?\S*\s?\S*\s?" 
                 [ngModel]="model" name="createitem" #createitem="ngModel"
                 data-toggle="tooltip" title="(Max allowed Item name size: 50 characters)" >
          <div [hidden]="createitem.valid || createitem.pristine" class="red">* Item name is not Valid.</div>
@@ -44,8 +44,8 @@
       <div class="modal-content modal-margin">
         <div class="modal-header">
            <form>
-             <input type="text" class="form-control" data-toggle="tooltip"  
-                required pattern="^\S+\s?\S*\s?\S*\s?\S*\s?\S*\s?" maxlength="50" required
+             <input type="text" class="form-control" data-toggle="tooltip" maxlength="50" required
+                required pattern="^\S+\s?\S*\s?\S*\s?\S*\s?\S*\s?\S*\s?\S*\s?\S*\s?\S*\s?" 
                 [ngModel]="item.name" name="updatename" #updatename="ngModel"
                 title="(Max allowed Item name size: 50 characters)" value="{{item.name}}">  
              <div [hidden]="updatename.valid" class="red">* Item name is not Valid.</div>                             

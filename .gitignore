@@ -1,10 +1,12 @@
 venv-django/
 .DS_Store
 db.sqlite3
+*.sqlite
 *db
 *.pyo
 *.pyc
 migrations
+*local_settings.py
 
 #Angular files
 .DS_Store
@@ -16,6 +18,5 @@ typings/
 *service.js
 *.js
 npm-debug.log
-
 
 .coverage
