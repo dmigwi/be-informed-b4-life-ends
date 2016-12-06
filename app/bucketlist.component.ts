@@ -82,8 +82,8 @@ export class BucketlistComponent implements OnInit{
         this.RetreiveBucketListForm();
         this.bucketlist.DestroyBucketList(BucketListId)
              .subscribe((data: any) => data,
-                        (err: any) => this.OnError(err._body));
-                                 
+                        (err: any) => this.OnError(err._body),
+                        () => this.RetreiveBucketListForm());        
           
     }
 

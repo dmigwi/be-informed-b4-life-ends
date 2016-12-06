@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 
 
@@ -74,12 +74,13 @@ export class HttpDataService {
         var url = this.bucketlistURL + '/' + BucketId;
         return this.http.get(url, {headers: this.GenerateHeaders()})
                             .map((res: Response) => res.json());
-    }
+    }   
 
-    DestroyBucketList(BucketId: number){        
+    DestroyBucketList(BucketId: number){ 
+        let options = new RequestOptions({headers: this.GenerateHeaders(),
+                                         method: RequestMethod.Delete });
         var url = this.bucketlistURL + '/' + BucketId;
-        return this.http.delete(url, {headers: this.GenerateHeaders()})
-                            .map((res: Response) => res.json());
+        return this.http.request(url, options);   
     }
 
     CreateBucketListItem(newItem:Object, BucketId:number){
@@ -95,9 +96,10 @@ export class HttpDataService {
     }
 
     DestroyBucketListItem(BucketId:number, ItemId:number){
+        let options = new RequestOptions({headers: this.GenerateHeaders(),
+                                         method: RequestMethod.Delete });
         var url = this.bucketlistURL + '/' + BucketId + '/items/' + ItemId;
-        return this.http.delete(url, {headers: this.GenerateHeaders()})
-                            .map((res: Response) => res.json());
+        return this.http.request(url, options);
     }
 
     GenerateHeaders(): Headers{

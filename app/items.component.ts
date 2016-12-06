@@ -27,10 +27,8 @@ export class ItemsComponent{
     @Input() public bucketName: string;
 
     ngOnChanges(...args: any[]) {
-        console.log(this.bucketlistId, ' before');
         if (this.bucketlistId > 0)
-                this.RetrieveItems(this.bucketlistId);
-        console.log(this.bucketlistId, ' after');
+                this.RetrieveItems(this.bucketlistId);       
     }
      
     // Retrieves the items based on the BucketList id available
@@ -75,17 +73,15 @@ export class ItemsComponent{
          this.items.DestroyBucketListItem(BucketListId, ItemId)
                     .subscribe((data: any) => data,
                         (err: any) => this.OnError(err._body),
-                        () => this.RetrieveItems(BucketListId));
+                        () => this.RetrieveItems(BucketListId));         
      } 
-
      
      ExtractItemData(data: any[]){
         this.list_of_items = data['items'];
      }
 
      OnError(error: any){
-         this.error_create_item = error; 
-         console.log(error);      
+         this.error_create_item = error;               
      }
 
      // checkbox toggle

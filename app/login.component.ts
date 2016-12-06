@@ -2,12 +2,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpDataService } from './data.service';
 
 import { Router, CanActivate } from '@angular/router';
-
 import 'rxjs/Rx';
 
 
 @Component({
-    providers: [ HttpDataService ],
+    providers: [ HttpDataService, ],
     template: `
                <nav class="navbar navbar-inverse new-navbar navbar-fixed">
                   <div class="container-fluid">
@@ -155,11 +154,4 @@ export class LoginComponent {
     OnSuccess(data: any){           
         this.successMessage = data;
      } 
-}
-
-export class AuthGuard implements CanActivate {
-  canActivate() {
-   // Return a boolean if the token exist
-    return localStorage.getItem("token") !== null;
-  }
 }
