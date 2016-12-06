@@ -6,6 +6,8 @@ omit =
     *__init__*
     *tests/*
     *migrations/*
+    *frontEnd/*
+    *node_modules/*
 exclude_lines =
     make_shell_context
 
