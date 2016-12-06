@@ -29,13 +29,13 @@ import 'rxjs/Rx';
                                                 <input type="text" name="username1" placeholder="Username..." 
                                                         class="form-control" [ngModel]="" #username1="ngModel"
                                                         required pattern="[A-Za-z0-9@#$%^&*()]+" maxlength="50">
-                                                <div [hidden]="username1.valid" class="red">* Username not Valid.</div>
+                                                <div [hidden]="username1.valid || username1.pristine" class="red">* Username not Valid.</div>
                                             </div>
                                             <div class="form-group">                                   
                                                 <input type="password" name="password1" placeholder="Password..." 
                                                         class="form-control" [ngModel]="" #password1="ngModel" 
                                                         required pattern="[A-Za-z0-9@#$%^&*()]+" maxlength="50">
-                                                <div [hidden]="password1.valid" class="red">* Password not Valid.</div>
+                                                <div [hidden]="password1.valid || password1.pristine" class="red">* Password not Valid.</div>
                                             </div>
                                             <button class="btn btn-success" type="submit"
                                                         [disabled]="!password1.valid||!username1.valid">Log In
@@ -79,13 +79,13 @@ import 'rxjs/Rx';
                             <input type="text" name="username2" placeholder="Username..." 
                                     class="form-control" [ngModel]="" #username2="ngModel"
                                     required pattern="[A-Za-z0-9@#$%^&*()]+" maxlength="50">
-                            <div [hidden]="username2.valid" class="red">* Username not Valid.</div>
+                            <div [hidden]="username2.valid || username2.pristine" class="red">* Username not Valid.</div>
                         </div>
                         <div class="form-group">                                   
                             <input type="password" name="password2" placeholder="Password..." 
                                     class="form-control" [ngModel]="" #password2="ngModel" 
                                     required pattern="[A-Za-z0-9@#$%^&*()]+" maxlength="50">
-                            <div [hidden]="password2.valid" class="red">* Password not Valid.</div>
+                            <div [hidden]="password2.valid || password2.pristine" class="red">* Password not Valid.</div>
                         </div>
                         <div class="form-group">                                   
                             <input type="password" name="confirm1" placeholder="Confirm Password..." 
@@ -107,8 +107,6 @@ import 'rxjs/Rx';
     `
 })
 export class LoginComponent {
-    @Output() notify: EventEmitter<string> = new EventEmitter<string>();
-
     private _login: any;
     private errorMessage: string;
     private successMessage: string;
@@ -140,14 +138,11 @@ export class LoginComponent {
     // If the login is successful redirect to the bucketlistpage
     OnSuccessfulLogin(){
         this.router.navigate(['#'])
-            this.notify.emit(this.currentUser);
        }
 
      
     // Extract the data and assign it to local Storage
     ExtractData(data: any){ 
-        console.log(data);
-                              
         localStorage.setItem('token', data.token);        
       }
      
@@ -160,8 +155,4 @@ export class LoginComponent {
     OnSuccess(data: any){           
         this.successMessage = data;
      } 
-
- 
 }
-
-

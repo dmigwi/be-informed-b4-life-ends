@@ -11,8 +11,8 @@
     <div class=" collapse navbar-collapse" id="myNavbar">              
       <ul class="nav navbar-nav navbar-right">
         <li>
-        <span>{{currentUser}}</span>
-        <a href="#"><span class="glyphicon glyphicon-log-in"></span>
+        <span></span>
+        <a href="#">{{this.currentUser + '  '}}<span class="glyphicon glyphicon-log-in"></span>
         Logout
         </a></li>
       </ul>
@@ -29,20 +29,24 @@
 
     <div class="col-sm-5 text-left">                 
     <div class="well well-sm">
-      <form >
+      <form (ngSubmit)="CreateBucketList(createBucket.value); createBucket.reset()">
           <input type="text" class="form-control" 
                       placeholder="Create a new BucketList" 
-                      required pattern="[A-Za-z0-9-.\s]+" maxlength="50"
+                      required pattern="^\S+\s?\S*\s?\S*\s?\S*\s?\S*\s?" maxlength="50"
                       [ngModel]="model" name="createBucket" #createBucket="ngModel" 
                       data-toggle="tooltip" title="(Max allowed BucketList name size: 50 characters)">
-           <div [hidden]="createBucket.valid" class="red">* BucketList name is not Valid.</div>
+           <div [hidden]="createBucket.valid || createBucket.pristine" class="red">* BucketList name is not Valid.</div>
           <input type="submit" class="btn btn-primary" name="" value="Create BucketList"
-          (click)="CreateBucketList(createBucket.value); createBucket.reset()" [disabled]="!createBucket.valid">
+           [disabled]="!createBucket.valid">
       </form>
 
       <!--Span tags to display status messages-->
-      <span class="red" id="error-create-bucket"></span>
-      <span class="green" id="success-create-bucket"></span>  
+      <span class="red col-md-offset-2" *ngIf="this.error_create_bucket">
+          {{this.error_create_bucket}}
+      </span>
+      <span class="green col-md-offset-2" *ngIf="this.success_create_bucket">
+          {{this.success_create_bucket}}
+      </span>  
 
     </div>
 
@@ -54,7 +58,7 @@
               <span class="red" [id]="'error-bucket-' + bucket.id"></span>
               <span class="green" [id]="'success-bucket-' + bucket.id"></span>
 
-              <span>{{i+1}}. {{bucket.name}}</span>
+              <span>{{i+1+this.pageCount}}. {{bucket.name}}</span>
         </div>
         <div class="panel-footer">Date Modified: {{bucket.date_modified}}  .
             <a class="green" id="{{bucket.id}}" data-toggle="modal" [attr.data-target]="'#UpdateModalItems' + i" href="">
@@ -69,15 +73,17 @@
               <div class="modal-dialog">
 
                 <!-- Modal content-->
-                <div class="modal-content modal-margin">
+                <div class="modal-content modal-margin" modal-backdrop="false">
                   <div class="modal-header">
-                    <form (ngSubmit)="UpdateBucketList(updateBucket.value); updateBucket.reset()">
+                    <form >
                         <input type="text" class="form-control" [ngModel]="bucket.name"
-                               name="updateBucket" required
-                               #updateBucket="ngModel" pattern="[A-Za-z0-9-.\s]+" maxlength="50"
+                               name="updateBucket" required maxlength="50"
+                               #updateBucket="ngModel" required pattern="^\S+\s?\S*\s?\S*\s?\S*\s?\S*\s?" 
                                data-toggle="tooltip" title="(Max allowed BucketList name size: 50 characters)">
                          <div [hidden]="updateBucket.valid" class="red">* BucketList name is not Valid.</div>
-                        <input type="submit" class="btn btn-info" value="Update" [disabled]="!updateBucket.valid">
+                        <input type="button" class="btn btn-info" value="Update" 
+                                data-dismiss="modal" [disabled]="!updateBucket.valid"
+                                (click)="UpdateBucketList(updateBucket.value, bucket.id)">
                         <input type="button" class="btn" data-dismiss="modal" value="Cancel">
                     </form>
                   </div>       
@@ -86,15 +92,18 @@
             </div>
 
             <!-- Delete Modal -->
-              <div class="modal fade" [id]="'DeleteModalItems' + i" role="dialog">
+              <div class="modal" [id]="'DeleteModalItems' + i" role="dialog">
               <div class="modal-dialog">
 
                 <!-- Modal content-->
                 <div class="modal-content modal-margin">
                   <div class="modal-header">
                     <p><strong>Do you want to Delete Bucketlist: {{bucket.name}}?</strong></p>
-                    <input type="button" class="btn btn-danger" value="Delete">
-                    <input type="button" class="btn" data-dismiss="modal" value="Cancel">
+                    <form >
+                      <input type="button" (click)="DeleteBucketList(bucket.id)" data-dismiss="modal"
+                             class="btn btn-danger" value="Delete">
+                      <input type="button" class="btn" data-dismiss="modal" value="Cancel">
+                    </form>
                   </div>       
                 </div>                                      
                </div>
@@ -104,8 +113,12 @@
 
     </div>
     <ul class="pager">
-    <li class="previous disabled"><a href="#">Previous</a></li>
-    <li class="next"><a href="#">Next</a></li>
+      <li class="previous" [class.disabled]="this.page_pervious===null" (click)="PreviousPage(this.page_pervious)">
+              <a>Previous</a>
+      </li>
+      <li class="next" [class.disabled]="this.page_next===null" (click)="NextPage(this.page_next)">
+              <a>Next</a>
+      </li>
     </ul>     
 
     </div>

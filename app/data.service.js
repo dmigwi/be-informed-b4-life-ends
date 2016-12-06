@@ -37,11 +37,11 @@ var HttpDataService = (function () {
             .map(function (res) { return res.json(); });
     };
     HttpDataService.prototype.retrieveBucketLists = function (pageUrl) {
-        if (pageUrl !== null) {
+        if (pageUrl === null) {
             // if pageUrl is not the null it is mad e the current Url
-            this.bucketlistURL = pageUrl;
+            pageUrl = this.bucketlistURL;
         }
-        return this.http.get(this.bucketlistURL, { headers: this.GenerateHeaders() })
+        return this.http.get(pageUrl, { headers: this.GenerateHeaders() })
             .map(function (res) { return res.json(); });
     };
     HttpDataService.prototype.createBucketList = function (bucket) {
@@ -64,17 +64,17 @@ var HttpDataService = (function () {
             .map(function (res) { return res.json(); });
     };
     HttpDataService.prototype.CreateBucketListItem = function (newItem, BucketId) {
-        var url = this.bucketlistURL + '/' + BucketId + '/item';
+        var url = this.bucketlistURL + '/' + BucketId + '/items';
         return this.http.post(url, JSON.stringify(newItem), { headers: this.GenerateHeaders() })
             .map(function (res) { return res.json(); });
     };
     HttpDataService.prototype.EditBucketListItem = function (updateItem, BucketId, ItemId) {
-        var url = this.bucketlistURL + '/' + BucketId + '/item/' + ItemId;
+        var url = this.bucketlistURL + '/' + BucketId + '/items/' + ItemId;
         return this.http.put(url, JSON.stringify(updateItem), { headers: this.GenerateHeaders() })
             .map(function (res) { return res.json(); });
     };
     HttpDataService.prototype.DestroyBucketListItem = function (BucketId, ItemId) {
-        var url = this.bucketlistURL + '/' + BucketId + '/item/' + ItemId;
+        var url = this.bucketlistURL + '/' + BucketId + '/items/' + ItemId;
         return this.http.delete(url, { headers: this.GenerateHeaders() })
             .map(function (res) { return res.json(); });
     };

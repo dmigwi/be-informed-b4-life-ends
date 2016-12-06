@@ -2,10 +2,10 @@
     <form (ngSubmit)="CreateItemForm(createitem.value, this.bucketlistId); createitem.reset()">
         <input type="text" class="form-control" 
                 placeholder="Create a new item in : {{this.bucketName}}" 
-                required pattern="[A-Za-z0-9-.\s]+" maxlength="50"
+                required pattern="^\S+\s?\S*\s?\S*\s?\S*\s?\S*\s?" maxlength="50"
                 [ngModel]="model" name="createitem" #createitem="ngModel"
                 data-toggle="tooltip" title="(Max allowed Item name size: 50 characters)" >
-         <div [hidden]="createitem.valid" class="red">* Item name is not Valid.</div>
+         <div [hidden]="createitem.valid || createitem.pristine" class="red">* Item name is not Valid.</div>
         <input type="submit" class="btn btn-primary" name="" value="Create Item" [disabled]="!createitem.valid">
     </form>
 
@@ -21,7 +21,7 @@
    <span class="red" [id]="'error-item-' + i"></span>
    <span class="green" [id]="'success-Item-' + i"></span> 
 
-    <p><span [class]="getDoneStatus(item.done)"></span>{{item.name}}</p>
+    <p><span [class]="getDoneStatus(item.done)">{{' ' + (i+1)}}</span>{{item.name}}</p>
     <p>Date Modified: {{item.date_modified}}</p> 
 
     <a class="green" data-toggle="modal" [attr.data-target]="'#UpdateModal' + i"  href="#">
@@ -39,9 +39,9 @@
       <!-- Modal content-->
       <div class="modal-content modal-margin">
         <div class="modal-header">
-           <form (ngSubmit)="UpdateItemForm(updatename.value, updatedone.value); updatename.reset(); updatedone.reset()">
+           <form>
              <input type="text" class="form-control" data-toggle="tooltip"  
-                pattern="[A-Za-z0-9-.\s]+" maxlength="50" required
+                required pattern="^\S+\s?\S*\s?\S*\s?\S*\s?\S*\s?" maxlength="50" required
                 [ngModel]="item.name" name="updatename" #updatename="ngModel"
                 title="(Max allowed Item name size: 50 characters)" value="{{item.name}}">  
              <div [hidden]="updatename.valid" class="red">* Item name is not Valid.</div>                             
@@ -55,7 +55,8 @@
                 </p>
               </div>
               <input type="button" class="btn btn-info" value="Update" [disabled]="!updatename.valid" 
-              (click)="UpdateItemForm(updatename.value, updatedone)">
+                  (click)="UpdateItemForm(updatename.value, this.bucketlistId, item.id)"  
+                  data-dismiss="modal">
               <input type="button" class="btn" data-dismiss="modal" value="Cancel">
            </form>
         </div>       
@@ -71,7 +72,8 @@
       <div class="modal-content modal-margin">
         <div class="modal-header">
           <p><strong>Do you want to Delete Item: {{item.name}}?</strong></p>
-          <input type="button" class="btn btn-danger" value="Delete">
+          <input type="button" class="btn btn-danger" value="Delete" data-dismiss="modal"
+                  (click)="DeleteItemForm(this.bucketlistId, item.id)">
           <input type="button" class="btn" data-dismiss="modal" value="Cancel">
         </div>       
        </div>                                      

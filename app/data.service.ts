@@ -41,11 +41,11 @@ export class HttpDataService {
     }
 
     retrieveBucketLists(pageUrl:string){
-        if (pageUrl !== null){
+        if (pageUrl === null){
             // if pageUrl is not the null it is mad e the current Url
-            this.bucketlistURL = pageUrl;
+            pageUrl = this.bucketlistURL;
         }        
-        return this.http.get(this.bucketlistURL, {headers: this.GenerateHeaders()})
+        return this.http.get(pageUrl, {headers: this.GenerateHeaders()})
                             .map((res: Response) => res.json());
     }
 
@@ -75,19 +75,19 @@ export class HttpDataService {
     }
 
     CreateBucketListItem(newItem:Object, BucketId:number){
-        var url = this.bucketlistURL + '/' + BucketId + '/item';
+        var url = this.bucketlistURL + '/' + BucketId + '/items';
         return this.http.post(url, JSON.stringify(newItem), {headers: this.GenerateHeaders()})
                             .map((res: Response) => res.json());
     }
 
     EditBucketListItem(updateItem:Object, BucketId:number, ItemId:number){
-        var url = this.bucketlistURL + '/' + BucketId + '/item/' + ItemId;
+        var url = this.bucketlistURL + '/' + BucketId + '/items/' + ItemId;
         return this.http.put(url, JSON.stringify(updateItem), {headers: this.GenerateHeaders()})
                             .map((res: Response) => res.json());
     }
 
     DestroyBucketListItem(BucketId:number, ItemId:number){
-        var url = this.bucketlistURL + '/' + BucketId + '/item/' + ItemId;
+        var url = this.bucketlistURL + '/' + BucketId + '/items/' + ItemId;
         return this.http.delete(url, {headers: this.GenerateHeaders()})
                             .map((res: Response) => res.json());
     }
