@@ -10,9 +10,11 @@ import { Item } from './bucketlist.items';
 })
 export class ItemsComponent{
     private checkbox_toggle: any = undefined;
-	private list_of_items: Item[] = [];
+	  private list_of_items: Item[] = [];
     private items: HttpDataService;
     private updateObject: any;
+
+    private error_create_item: string;
 
     constructor(items: HttpDataService){
         this.items = items;
@@ -53,9 +55,6 @@ export class ItemsComponent{
      } 
      
     UpdateItemForm(name: string, BucketListId: number, ItemId: number){
-        // console.log(name)
-        // console.log(this.checkbox_toggle)
-        
         if (this.checkbox_toggle === true){
             this.updateObject = {"name":name, "done":true}
         }
@@ -85,7 +84,8 @@ export class ItemsComponent{
      }
 
      OnError(error: any){
-        console.log(error._body)
+         this.error_create_item = error; 
+         console.log(error);      
      }
 
      // checkbox toggle

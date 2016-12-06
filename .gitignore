@@ -13,7 +13,8 @@ typings/
 *component.js
 *js.map
 *module.js
-main.js
+*service.js
+*.js
 npm-debug.log
 
 

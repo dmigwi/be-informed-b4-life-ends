@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpDataService } from './data.service';
 
-import { Router } from '@angular/router';
+import { Router, CanActivate } from '@angular/router';
 
 import 'rxjs/Rx';
 
@@ -137,7 +137,7 @@ export class LoginComponent {
     
     // If the login is successful redirect to the bucketlistpage
     OnSuccessfulLogin(){
-        this.router.navigate(['#'])
+        this.router.navigate(['app'])
        }
 
      
@@ -155,4 +155,11 @@ export class LoginComponent {
     OnSuccess(data: any){           
         this.successMessage = data;
      } 
+}
+
+export class AuthGuard implements CanActivate {
+  canActivate() {
+   // Return a boolean if the token exist
+    return localStorage.getItem("token") !== null;
+  }
 }

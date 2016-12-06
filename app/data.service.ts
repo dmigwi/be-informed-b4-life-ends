@@ -40,6 +40,14 @@ export class HttpDataService {
                  
     }
 
+    UserLogout(){
+        // Method deletes the token from the backend
+        console.log(this.GenerateHeaders());
+        return this.http.post(this.logoutUrl, {headers: this.GenerateHeaders()})
+                            .map((res: Response) => res.json());
+
+    }
+
     retrieveBucketLists(pageUrl:string){
         if (pageUrl === null){
             // if pageUrl is not the null it is mad e the current Url

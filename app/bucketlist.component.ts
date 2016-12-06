@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { BucketList } from './bucketlist.items';
 import { HttpDataService } from './data.service';
 
+import { Router } from '@angular/router';
+
+
 @Component({
     providers: [ HttpDataService ],
     templateUrl: 'app/bucketlist.component.html'
@@ -21,8 +24,17 @@ export class BucketlistComponent implements OnInit{
 
     private pageCount: number = 0;
 
-    constructor(bucketlist: HttpDataService){
+    constructor(bucketlist: HttpDataService, private router: Router){
         this.bucketlist = bucketlist;
+    }
+
+    Logout(){
+        // Logout Method should delete the token from both the backend and local Storage
+        this.bucketlist.UserLogout()
+             .subscribe((data: any) => data,
+                        (err: any) => this.OnError(err._body),
+                        () => {this.router.navigateByUrl("/login"),
+                                localStorage.clear()});
     }
 
     PreviousPage(pageUrl: string){

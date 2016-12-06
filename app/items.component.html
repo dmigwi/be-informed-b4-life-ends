@@ -10,8 +10,12 @@
     </form>
 
      <!--Span tags to display status messages-->
-     <span class="red" id="error-create-item"></span>
-     <span class="green" id="success-create-item"></span>  
+     <span class="red col-md-offset-2" *ngIf="this.error_create_item">
+       {{this.error_create_item}}
+     </span>
+     <span class="green col-md-offset-2" *ngIf="this.success_create_item">
+        {{this.success_create_item}}
+     </span>  
 
 </div>
 <div class="scrollable">                 

@@ -36,6 +36,12 @@ var HttpDataService = (function () {
         return this.http.post(url, JSON.stringify(user), { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    HttpDataService.prototype.UserLogout = function () {
+        // Method deletes the token from the backend
+        console.log(this.GenerateHeaders());
+        return this.http.post(this.logoutUrl, { headers: this.GenerateHeaders() })
+            .map(function (res) { return res.json(); });
+    };
     HttpDataService.prototype.retrieveBucketLists = function (pageUrl) {
         if (pageUrl === null) {
             // if pageUrl is not the null it is mad e the current Url

@@ -1,12 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework.decorators import (api_view,
-                                       permission_classes,
-                                       authentication_classes)
-from rest_framework.authentication import (TokenAuthentication,
-                                           BasicAuthentication)
+                                       permission_classes)
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-
 from bi.bucketlistapi.serializer import UserSerializer
 
 # Functional Views
@@ -58,8 +53,6 @@ def register_user(request):
 
 
 @api_view(['POST'])
-@authentication_classes((TokenAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 def logout_user(request):
     '''For a successful logout, delete the stored token'''
     if request.auth:

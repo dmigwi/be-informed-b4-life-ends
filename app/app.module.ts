@@ -10,15 +10,15 @@ import { LoginComponent } from  './login.component';
 import { MainComponent } from  './main.component';
 
 const appRoutes: Routes = [
-	{path: '', component: LoginComponent},
-	{path: '#', component: BucketlistComponent}
+	{path: 'login', component: LoginComponent},
+	{path: 'app', component: BucketlistComponent, canActivate: [localStorage.getItem("token") !== null]}
 ];
 
 @NgModule({
   imports:      [ BrowserModule , HttpModule, FormsModule,
    				  RouterModule.forRoot(appRoutes) ],
   declarations: [ ItemsComponent, BucketlistComponent, 
-  				  LoginComponent, MainComponent ],
+  				  LoginComponent, MainComponent],
   bootstrap:    [ MainComponent ],
   // directive:    [ DataService ]
 })
