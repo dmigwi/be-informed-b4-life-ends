@@ -29,11 +29,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# LOGIN_URL = '/api/v1/auth/login'
+LOGIN_URL = '/api/v1/auth/login'
 
-# LOGOUT_URL = '/api/v1/auth/logout'
+LOGOUT_URL = '/api/v1/auth/logout'
 
-# LOGIN_REDIRECT_URL = '/api/v1/auth/login'
+LOGIN_REDIRECT_URL = '/api/v1/bucketlists'
 
 
 # Application definition
@@ -158,6 +158,13 @@ USE_L10N = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static-collected')
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
 
 # Override the default database configuration if local setting.py exist.
 # Set Up you custom database configuration in folder bi
