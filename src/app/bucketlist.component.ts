@@ -38,6 +38,7 @@ export class BucketlistComponent implements OnInit{
     }
 
     PreviousPage(pageUrl: string){
+        this.clearStatusMessages();
         this.RetreiveBucketListForm(pageUrl);
 
          // Decrease the pageCount by 10 since the default page size is 10 elements
@@ -45,6 +46,7 @@ export class BucketlistComponent implements OnInit{
     }
 
     NextPage(pageUrl: string){
+        this.clearStatusMessages();
         this.RetreiveBucketListForm(pageUrl);
 
         // Increase the pageCount by 10 since the default page size is 10 elements
@@ -60,6 +62,7 @@ export class BucketlistComponent implements OnInit{
     
     // Creates a new bucketlist associated with current user
     CreateBucketList(name: string){
+        this.clearStatusMessages();
         this.pageCount = 0;   // initialize the count again
         this.bucketlist.createBucketList({"name":name})
              .subscribe((data: any) => data,
@@ -69,6 +72,7 @@ export class BucketlistComponent implements OnInit{
     
     // Updates a Bucketlist associated with the current user
     UpdateBucketList(name: string, BucketListId: number){
+        this.clearStatusMessages();
         this.pageCount = 0;   // initialize the count again
         this.bucketlist.EditBucketList({"name": name}, BucketListId)
              .subscribe((data: any) => data,
@@ -78,7 +82,7 @@ export class BucketlistComponent implements OnInit{
     
     // Delete a Bucketlist associated with the current user
     DeleteBucketList(BucketListId: number){
-        // this.pageCount = 0;
+        this.clearStatusMessages();
         this.RetreiveBucketListForm();
         this.bucketlist.DestroyBucketList(BucketListId)
              .subscribe((data: any) => data,
@@ -125,10 +129,14 @@ export class BucketlistComponent implements OnInit{
     }
 
     // Called after the component has fully loaded
-    ngOnInit(){  
-        this.success_create_bucket=null; 
-        this.error_create_bucket=null;     
+    ngOnInit(){
         this.RetreiveBucketListForm();                
+    }
+
+    clearStatusMessages(){
+        // Method clears all status messages that exist
+        this.success_create_bucket=null; 
+        this.error_create_bucket=null; 
     }
 
 
