@@ -47,6 +47,12 @@ class SingleBucketListViewSet(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = (BasicAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated, IsOwner)
 
+    def perform_update(self, serializer):
+        try:
+            serializer.save(created_by=self.request.user)
+        except IntegrityError:
+            raise ValidationError("BucketList already exists")
+
 
 class CreateItemViewSet(generics.CreateAPIView):
     '''Creates a new bucketlist item'''
@@ -69,3 +75,9 @@ class ItemViewSet(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = (BasicAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated, IsOwner, IsBucketListValid)
     lookup_field = ('id')
+
+    def perform_update(self, serializer):
+        try:
+            serializer.save(created_by=self.request.user)
+        except IntegrityError:
+            raise ValidationError("Item already exists")

@@ -27,7 +27,7 @@ SECRET_KEY = '2ujop3m9%g3fq$jzi5b+6ougmpx1@6&d7-a@)9j^(1wo9u50s#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'dj-bucketlist.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0', 'dj-bucketlist.herokuapp.com', 'localhost']
 
 LOGIN_URL = '/api/v1/auth/login'
 
@@ -152,6 +152,8 @@ TIME_ZONE = 'Africa/Nairobi'
 USE_I18N = True
 
 USE_L10N = True
+
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
