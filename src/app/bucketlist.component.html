@@ -116,14 +116,12 @@
       <li class="previous" [class.disabled]="this.page_pervious===null" >
               <span *ngIf="this.page_pervious" (click)="PreviousPage(this.page_pervious)"> 
                   <a>Previous</a>               
-              </span> 
-              <a *ngIf="!this.page_pervious">Previous</a>              
+              </span>                            
       </li>
       <li class="next" [class.disabled]="this.page_next===null">
               <span *ngIf="this.page_next" (click)="NextPage(this.page_next)"> 
                   <a>Next</a>               
-              </span> 
-              <a *ngIf="!this.page_next">Next</a>              
+              </span>                          
       </li>
     </ul>     
 
