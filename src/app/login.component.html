@@ -89,7 +89,7 @@
         </div>
         <button class="navbar-left btn btn-info" type="button"  data-dismiss="modal"
              (click)="userRegister(username2.value, password2.value)"
-            [disabled]="!password2.valid||!username2.valid||!confirm1.valid">
+            [disabled]="!password2.valid||!username2.valid||!(password2.value === confirm1.value)">
             Register</button>
         <input type="button" class="btn" data-dismiss="modal" value="Cancel">
     </form>

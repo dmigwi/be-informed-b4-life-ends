@@ -7,9 +7,9 @@ import 'rxjs/Rx';
 
 @Component({
     providers: [ HttpDataService, ],
-    templateUrl: './login.component.html'
-    
+    templateUrl: './login.component.html'    
 })
+
 export class LoginComponent {
     private _login: any;
     private errorMessage: string;
@@ -22,21 +22,23 @@ export class LoginComponent {
     }
     
     userLogin(username: string, password: string){
+        this.errorMessage = null;
+        this.successMessage = null;
         this.currentUser = username;
         this._login.userAuthentication({"username":username, "password":password}, 'login')
                     .subscribe(
                         (data: any) => this.ExtractData(data),
                         (err: any) => this.OnError(err._body),
-                        () => this.OnSuccessfulLogin());
-        
+                        () => this.OnSuccessfulLogin());        
         }
     
     userRegister(username: string, password: string){
+         this.errorMessage = null;
+         this.successMessage = null;
          this._login.userAuthentication({"username":username, "password":password}, 'register')
                     .subscribe(
                         (data: any) => this.OnSuccess(data),
-                        (err: any) => this.OnError(err._body));
-        
+                        (err: any) => this.OnError(err._body));        
         }
     
     // If the login is successful redirect to the bucketlistpage
