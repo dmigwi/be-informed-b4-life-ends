@@ -12,7 +12,7 @@ import { AuthGuard } from './authguard';
 
 const appRoutes: Routes = [
 	{path: '', component: LoginComponent},
-	{path: 'app', component: BucketlistComponent, canActivate: [AuthGuard ]}
+	{path: 'app', component: BucketlistComponent, canActivate: [ AuthGuard ]}
 ];
 
 @NgModule({

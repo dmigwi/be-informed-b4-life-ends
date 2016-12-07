@@ -125,7 +125,9 @@ export class BucketlistComponent implements OnInit{
     }
 
     // Called after the component has fully loaded
-    ngOnInit(){        
+    ngOnInit(){  
+        this.success_create_bucket=null; 
+        this.error_create_bucket=null;     
         this.RetreiveBucketListForm();                
     }
 
