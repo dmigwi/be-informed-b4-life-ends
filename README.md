@@ -6,9 +6,11 @@
 Hosted Angular 2 app: https://be-informed.herokuapp.com
 
 This bucketlist branch contains Frontend in angular 2
-    **Landing Page**
+
+ **Landing Page**
 ![ScreenShot 1](images/Screen Shot.png)
-    **Main Page**
+
+ **Main Page**
 ![ScreenShot 2](images/Screen Shot1.png)
 
 
@@ -21,3 +23,5 @@ This bucketlist branch contains Frontend in angular 2
 
 - Install all dependancies:
 `npm install --save`
+
+Created By [Migwi Ndung'u](https://github.com/andela-dmigwi/be-informed-b4-life-ends/edit/ft-angular-deploy) @2016
