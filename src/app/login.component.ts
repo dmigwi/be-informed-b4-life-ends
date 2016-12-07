@@ -41,7 +41,7 @@ export class LoginComponent {
     
     // If the login is successful redirect to the bucketlistpage
     OnSuccessfulLogin(){
-        this.router.navigate(['app'])
+        this.router.navigateByUrl("/app");
        }
 
      

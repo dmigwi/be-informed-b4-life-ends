@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
     	return true;
 		}
 	//Redirect the user before denying them access to this route
-    this.router.navigate(['']);
+    this.router.navigateByUrl("/");
     return false;
   }
 }
