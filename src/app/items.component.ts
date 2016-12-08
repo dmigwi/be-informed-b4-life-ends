@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { HttpDataService } from './data.service'; 
 import { Item } from './bucketlist.items';
+
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
 	selector: 'items',
@@ -16,8 +18,9 @@ export class ItemsComponent{
 
     private error_create_item: string;
 
-    constructor(items: HttpDataService){
-        this.items = items;
+    constructor(items: HttpDataService, private toastr: ToastsManager, vRef: ViewContainerRef){
+         toastr.setRootViewContainerRef(vRef);
+         this.items = items;
     }
 
     // Recieves Id input from bucketlist component
@@ -35,7 +38,7 @@ export class ItemsComponent{
     RetrieveItems(bucketId : number = this.bucketlistId){
         this.items.RetrieveSingleBucketList(bucketId)
                    .subscribe((data: any) => this.ExtractItemData(data),
-                        (err: any) => this.OnError(err._body)); 
+                        (err: any) => this.OnError(err._body, 'Retrieve Item Failed!')); 
     }
 
     getItemsId() {
@@ -45,9 +48,9 @@ export class ItemsComponent{
      } 
 
     CreateItemForm(createitem: string, bucketId: number){
-        this.items.CreateBucketListItem({"name":createitem}, bucketId)
+        this.items.CreateBucketListItem({"name": createitem}, bucketId)
                     .subscribe((data: any) => data,
-                        (err: any) => this.OnError(err._body),
+                        (err: any) => this.OnError(err._body, 'Create Item Failed!'),
                         () => this.RetrieveItems(bucketId));
      } 
      
@@ -64,14 +67,14 @@ export class ItemsComponent{
         
         this.items.EditBucketListItem(this.updateObject, BucketListId, ItemId)                                    
                     .subscribe((data: any) => data,
-                        (err: any) => this.OnError(err._body),
+                        (err: any) => this.OnError(err._body, 'Update Item Failed!'),
                         () => this.RetrieveItems(BucketListId));
      } 
 
      DeleteItemForm(BucketListId: number, ItemId: number){
          this.items.DestroyBucketListItem(BucketListId, ItemId)
                     .subscribe((data: any) => data,
-                        (err: any) => this.OnError(err._body),
+                        (err: any) => this.OnError(err._body, 'Delete Item Failed!'),
                         () => this.RetrieveItems(BucketListId));         
      } 
      
@@ -81,8 +84,8 @@ export class ItemsComponent{
         this.list_of_items = data['items'];
      }
 
-     OnError(error: any){
-         this.error_create_item = error;               
+     OnError(error: any, message: string){
+         this.toastr.error(error, message);                  
      }
 
      // checkbox toggle

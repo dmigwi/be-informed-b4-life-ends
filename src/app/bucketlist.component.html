@@ -40,15 +40,7 @@
            <div [hidden]="createBucket.valid || createBucket.pristine" class="red">* BucketList name is not Valid.</div>
           <input type="submit" class="btn btn-primary" name="" value="Create BucketList"
            [disabled]="!createBucket.valid">
-      </form>
-
-      <!--Span tags to display status messages-->
-      <span class="red col-md-offset-2" *ngIf="this.error_create_bucket">
-          {{this.error_create_bucket}}
-      </span>
-      <span class="green col-md-offset-2" *ngIf="this.success_create_bucket">
-          {{this.success_create_bucket}}
-      </span>  
+      </form>      
 
     </div>
 

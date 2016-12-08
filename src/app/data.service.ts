@@ -42,7 +42,6 @@ export class HttpDataService {
 
     UserLogout(){
         // Method deletes the token from the backend
-        console.log(this.GenerateHeaders());
         return this.http.post(this.logoutUrl, {headers: this.GenerateHeaders()})
                             .map((res: Response) => res.json());
 

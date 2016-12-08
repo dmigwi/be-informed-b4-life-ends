@@ -9,14 +9,6 @@
         <input type="submit" class="btn btn-primary" name="" value="Create Item" [disabled]="!createitem.valid">
     </form>
 
-     <!--Span tags to display status messages-->
-     <span class="red col-md-offset-2" *ngIf="this.error_create_item">
-       {{this.error_create_item}}
-     </span>
-     <span class="green col-md-offset-2" *ngIf="this.success_create_item">
-        {{this.success_create_item}}
-     </span>  
-
 </div>
 <div class="scrollable">                 
    <div class="well well-sm" *ngFor="let item of getItemsId(); let i = index ">

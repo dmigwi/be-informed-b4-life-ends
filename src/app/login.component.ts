@@ -1,7 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewContainerRef } from '@angular/core';
 import { HttpDataService } from './data.service';
 
 import { Router, CanActivate } from '@angular/router';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import 'rxjs/Rx';
 
 
@@ -12,33 +13,28 @@ import 'rxjs/Rx';
 
 export class LoginComponent {
     private _login: any;
-    private errorMessage: string;
-    private successMessage: string;
     public currentUser: string;
-
    
-    constructor(private login: HttpDataService, private router : Router ){
-       this._login = login;
+    constructor(private login: HttpDataService, private router : Router
+     , private toastr: ToastsManager, vRef: ViewContainerRef){
+         toastr.setRootViewContainerRef(vRef);
+         this._login = login;      
     }
     
     userLogin(username: string, password: string){
-        this.errorMessage = null;
-        this.successMessage = null;
         this.currentUser = username;
         this._login.userAuthentication({"username":username, "password":password}, 'login')
                     .subscribe(
                         (data: any) => this.ExtractData(data),
-                        (err: any) => this.OnError(err._body),
+                        (err: any) => this.OnError(err._body, 'Login Failed!'),
                         () => this.OnSuccessfulLogin());        
         }
     
-    userRegister(username: string, password: string){
-         this.errorMessage = null;
-         this.successMessage = null;
+    userRegister(username: string, password: string){        
          this._login.userAuthentication({"username":username, "password":password}, 'register')
                     .subscribe(
-                        (data: any) => this.OnSuccess(data),
-                        (err: any) => this.OnError(err._body));        
+                        (data: any) => this.OnSuccess(data, 'Registration Successful!'),
+                        (err: any) => this.OnError(err._body, 'Registration Failed!'));        
         }
     
     // If the login is successful redirect to the bucketlistpage
@@ -53,12 +49,15 @@ export class LoginComponent {
       }
      
      // Assign the error message
-     OnError(error: any){
-        this.errorMessage = error;                
+     OnError(error: any, message: string){
+        if(JSON.parse(error).non_field_errors){
+           error = JSON.parse(error).non_field_errors;          
+          }
+        this.toastr.error(error, message);                        
      } 
     
     // Display successful registration to the user
-    OnSuccess(data: any){              
-        this.successMessage = data.Message;
+    OnSuccess(data: any, message: string){              
+        this.toastr.success(data.Message, message);
      } 
 }
